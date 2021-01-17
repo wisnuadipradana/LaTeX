@@ -1,0 +1,227 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Presentation
+% LaTeX Template
+% Version 1.0 (10/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND THEMES
+%----------------------------------------------------------------------------------------
+
+\documentclass{beamer}
+
+\mode<presentation> {
+
+% The Beamer class comes with a number of default slide themes
+% which change the colors and layouts of slides. Below this is a list
+% of all the themes, uncomment each in turn to see what they look like.
+
+%\usetheme{default}
+%\usetheme{AnnArbor}
+%\usetheme{Antibes}
+%\usetheme{Bergen}
+%\usetheme{Berkeley}
+%\usetheme{Berlin}
+%\usetheme{Boadilla}
+%\usetheme{CambridgeUS}
+%\usetheme{Copenhagen}
+%\usetheme{Darmstadt}
+%\usetheme{Dresden}
+%\usetheme{Frankfurt}
+%\usetheme{Goettingen}
+%\usetheme{Hannover}
+%\usetheme{Ilmenau}
+%\usetheme{JuanLesPins}
+%\usetheme{Luebeck}
+%\usetheme{Madrid}
+%\usetheme{Malmoe}
+%\usetheme{Marburg}
+%\usetheme{Montpellier}
+%\usetheme{PaloAlto}
+%\usetheme{Pittsburgh}
+%\usetheme{Rochester}
+\usetheme{Singapore}
+%\usetheme{Szeged}
+%\usetheme{Warsaw}
+
+% As well as themes, the Beamer class has a number of color themes
+% for any slide theme. Uncomment each of these in turn to see how it
+% changes the colors of your current slide theme.
+
+%\usecolortheme{albatross}
+%\usecolortheme{beaver}
+%\usecolortheme{beetle}
+%\usecolortheme{crane}
+%\usecolortheme{dolphin}
+%\usecolortheme{dove}
+%\usecolortheme{fly}
+%\usecolortheme{lily}
+\usecolortheme{orchid}
+%\usecolortheme{rose}
+%\usecolortheme{seagull}
+%\usecolortheme{seahorse}
+%\usecolortheme{whale}
+%\usecolortheme{wolverine}
+
+%\setbeamertemplate{footline} % To remove the footer line in all slides uncomment this line
+%\setbeamertemplate{footline}[page number] % To replace the footer line in all slides with a simple slide count uncomment this line
+
+%\setbeamertemplate{navigation symbols}{} % To remove the navigation symbols from the bottom of all slides uncomment this line
+}
+
+\usepackage{wrapfig}
+\usepackage{graphicx} % Allows including images
+\usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
+\usepackage{xcolor}
+\newtheorem{contoh}{Contoh}
+\newtheorem{definisi}{Definisi}
+\newtheorem{teorema}{Teorema}
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\title[Persamaan Differensial]{Persamaan Differensial} % The short title appears at the bottom of every slide, the full title is only on the title page
+
+\author{Uzumaki Sang Raja Kucing} % Your name
+\institute[ITB] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+{
+Institut Teknologi Bandung \\ % Your institution for the title page
+\medskip
+\textit{widyacantik@gmail.com} % Your email address
+}
+\date{\today} % Date, can be changed to a custom date
+
+\begin{document}
+
+\begin{frame}
+\titlepage % Print the title page as the first slide
+\end{frame}
+\section{PDLH}
+\begin{frame}{PD Linier Homogen}
+Persamaan differensial biasa berorde-$\color{blue}n$ memiliki bentuk umum
+\begin{align*}
+\color{blue} y^{(n)}+a_1(x)y^{(n-1)}+\cdots+a_{n-1}y'+a_ny=\phi(x)
+\end{align*}
+Persamaan ini \textbf{linear} karena jika $\color{blue}f(x)$ dan $\color{blue}g(x)$ solusi dari persamaan diferensial tersebut maka $\color{blue}kf(x)$ dan $\color{blue}f(x)+g(x)$ juga merupakan solusi. 
+
+Untuk $\color{blue}\phi(x)=0$ kita sebut persamaan diferensial tersebut adalah persamaan diferensial \textbf{homogen}.
+\end{frame}
+\subsection{Persamaan Diferensial Homogen Orde 2}
+\begin{frame}{Persamaan Diferensial Homogen Orde 2}
+	Misalkan persamaan diferensial berbentuk $\color{blue}y''+a_1y+a_2y=0$. \pause
+	Didefinisikan \textbf{persamaan karakteristik } dari persamaan diferensial tersebut adalah $\color{blue} r^2+a_1r+a_2=0.$ \pause 
+	\begin{teorema}
+		Jika $\color{blue}r_1$ dan $\color{blue}r_2$ adalah akar-akar real berbeda dari persamaan karakteristik dari persamaan diferensial $\color{blue}y''+a_1y'+a_2y=0$ maka solusi umum dari persamaan diferensial tersebut adalah $$\color{blue}y(x)=c_1e^{r_1x}+c_2e^{r_2x}.$$
+	\end{teorema} \pause 
+\end{frame}
+
+
+\subsection{Persamaan Diferensial Homogen Orde yang Lebih Tinggi}
+\begin{frame}{Persamaan Diferensial Homogen Orde yang Lebih Tinggi}
+Persamaan karakteristik dari persamaan diferenaial
+\begin{align*}
+\color{blue} y^{(n)}+a_1(x)y^{(n-1)}+\cdots+a_{n-1}y'+a_ny=0
+\end{align*}
+adalah 
+\begin{align*}
+\color{blue} r^n+a_1r^{n-1}+a_2r^{n-2}+\cdots+a_{n-1}r+a_n=0.
+\end{align*}
+\begin{contoh}
+	Misalkan persamaan karakteristik dari suatu persamaan diferensial adalah $$\color{blue}(r-r_1)(r-r_2)^3(r-(\alpha+i\beta))(r-(\alpha-i\beta))=0$$
+	maka solusi dari persamaan diferensial tersebut adalah
+	\begin{align*}
+	\color{blue} y(x)=c_1e^{r_1x}+(c_2+c_3x+c_4x^2)e^{r_2x}+(e^{\alpha x}(c_5\cos x+c_6\sin x))
+	\end{align*}
+\end{contoh}
+\end{frame}
+
+\section{PDLNH}
+\begin{frame}{Persamaan Diferensial Linier Non Homogen}
+	Bentuk umum persamaan linier non homogen.
+	\begin{align*}
+	\color{blue} y^{(n)}+a_1(x)y^{(n-1)}+\cdots+a_{n-1}y'+a_ny=\phi(x)
+	\end{align*}
+	dengan $\color{blue}\phi(x)\neq 0$. 
+\end{frame}
+
+
+\begin{frame}
+%	\begin{wrapfigure}{l}{0.4\textwidth}
+%		\centering
+%		\includegraphics[width=0.4\textwidth]{6d.jpg}
+%	\end{wrapfigure}
+	\textbf{Kasus 1.} Jika $\color{blue}E^2-4B^2<0$ maka diperoleh akar-akarnya adalah $\color{blue}r_{1,2}=-\alpha\pm i\beta$. Solusi persamaan diferensialnya adalah
+	$$\color{blue}y(t)=c_1e^{-\alpha t}\cos(\beta t)+c_2e^{-\alpha t}\sin(\beta t).$$
+\end{frame}
+\begin{frame}
+%	\begin{wrapfigure}{l}{0.5\textwidth}
+%		\centering
+%		\includegraphics[width=0.5\textwidth]{gambar3.png}
+%	\end{wrapfigure}
+	\textbf{Kasus 2.} Jika $\color{blue}E^2-4B^2=0$ maka diperoleh akarnya kembar $r_{1,2}=-\alpha$ dimana $\color{blue}\alpha=\frac{E}{2}$. Solusi persamaan diferensialnya adalah
+	$$\color{blue}y(t)=c_1e^{-\alpha t}+c_2te^{-\alpha t}$$
+\end{frame}
+
+\begin{frame}{Daftar Pustaka}
+	\begin{thebibliography}{9}
+		\bibitem{Purcell} 
+		Verberg, Purcell and Ridgon, (2007). \textit{Calculus}(9$^{th}$ edition). Southern illinois university edwardsville.
+		\bibitem{Soal-soal} 
+		Soal-soal Tutorial MAC 2019/2020
+	\end{thebibliography}
+\end{frame}
+
+
+\newpage
+\begin{frame}
+\frametitle{Sample frame title}
+This is a text in second frame. 
+For the sake of showing an example.
+
+\begin{itemize}
+	\item<1-> Text visible on slide 1
+	\item<2-> Text visible on slide 2
+	\item<3> Text visible on slide 3
+	\item<4-> Text visible on slide 4
+\end{itemize}
+
+\end{frame}
+
+
+
+\newpage
+\begin{frame}
+\frametitle{Sample frame title}
+
+In this slide, some important text will be
+\alert{highlighted} because it's important.
+Please, don't abuse it.
+
+\begin{block}{Remark}
+Sample text
+\end{block}
+
+\begin{alertblock}{Important theorem}
+Sample text in red box
+\end{alertblock}
+
+\begin{examples}
+Sample text in green box. The title of the block is ``Examples".
+\end{examples}
+\end{frame}
+
+
+
+
+
+
+
+
+\end{document} 
