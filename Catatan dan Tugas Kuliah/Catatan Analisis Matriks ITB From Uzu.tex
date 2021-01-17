@@ -1,0 +1,1516 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{geometry}\geometry{tmargin=2cm,lmargin=2cm,bmargin=2cm,rmargin=2cm}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\DeclareMathOperator{\lcm}{$\text{lcm}$}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bs}{\boldsymbol}
+\usepackage{multicol}
+
+
+\author{Uzumaki Nagato Tenshou}
+\title{Catatan Analisis Matriks (MA5021)}
+
+\usepackage{fancyhdr}
+\rhead{Uzumaki Nagato Tenshou}
+\lhead{}
+
+\usepackage{amsthm}
+\makeatletter
+\def\th@plain{%
+	\thm@notefont{}% same as heading font
+	\itshape % body font
+}
+\def\th@definition{%
+	\thm@notefont{}% same as heading font
+	\normalfont % body font
+}
+\makeatother
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{cor}{Akibat}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{sifat}[theorem]{Sifat}
+
+\theoremstyle{definition}
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{exmp}[theorem]{Example}
+\newtheorem{prob}[theorem]{Problem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+
+
+
+\begin{document}
+%\vspace{-8ex}
+%\date{}
+\maketitle
+\pagestyle{fancy}
+
+
+\begin{center}
+	\textbf{Matriks Uniter dan Matriks Hermitian}
+\end{center}
+
+
+
+Masalah matriks berikut berkaitan dengan diagonalisasi pada matriks kompleks, dan berhubungan dengan masalah nilai eigen, sehingga dibutuhkan konsep matriks Uniter dan matriks Hermitian. Matriks tersebut bersesuaian dengan matriks ortogonal dan matriks real simetri. Sebelum mendefinisikan matriks Uniter dan matriks Hermitian, pertama diperkenalkan konsep dari konjugat transpose matriks.
+
+\begin{enumerate}
+	\item[0.] \textbf{Matriks Transpose dan Matriks Konjugat}\\
+	\\
+	\hspace*{0.5cm} Diberikan Matriks $A^T$ merupakan matriks ukuran $m\times n$ dengan elemen bernilai kompleks. Matriks $A^T$ dengan ukuran $n\times m$ dikatakan matriks Transpose dari Matriks $A$ dengan ukuran $n\times m$ jika masing-masing entri kolom dan baris ditukar atau ditulis
+	\begin{align*}
+	A^T=\left[ a_{ij}\right]^T=\left[ a_{ji}\right]
+	\end{align*}
+	Sifat-Sifat dari Matriks Transpose yang perlu diketahui :
+	\begin{enumerate}
+		\item[a.] $(A^T)^T=A$
+		\item[b.] $(k\cdot A)^T=k\cdot A^T$ dimana $k\in\mathbb{C}$
+		\item[c.] $(A+B)^T=A^T+B^T$
+		\item[d.]  $(AB)^T=B^T\cdot A^T$
+		\item[e.] $\det(A^T)=\det(A)$
+	\end{enumerate}
+	\- \\
+	\hspace*{0.5cm} Diberikan Matriks $\overline{A}$ merupakan matriks ukuran $m\times n$ dengan elemen bernilai kompleks. Matriks $\overline{A}$ dengan ukuran $n\times m$ dikatakan Matriks Konjugat dari Matriks $A$ dengan ukuran $n\times m$ jika masing-masing elemen pada matriks merupakan konjugat kompleks dari masing-masing elemen pada matriks $A$ atau ditulis
+	\begin{align*}
+	\overline{A}=\overline{\left[ a_{ij}\right]}=\left[ \overline{a_{ij}}\right]
+	\end{align*}
+	Sifat-Sifat dari Matriks Konjugat yang perlu diketahui :
+	\begin{enumerate}
+		\item[a.] $\overline{(\overline{A})} = A$
+		\item[b.] $\overline{(k\cdot A)}=\overline{k} \cdot \overline{A}$ dimana $k\in\mathbb{C}$
+		\item[c.] $\overline{(A+B)}=\overline{A}+\overline{B}$
+		\item[d.]  $\overline{AB}=\overline{A}\cdot \overline{B}$
+	\end{enumerate}
+	
+	
+	\item \textbf{Konjugat Transpose Matriks}\\
+	\\
+	\hspace*{0.5cm} Konjugat Transpose dari Matriks Kompleks $A$ dituliskan $A^*$ yang didefinisikan
+	\begin{align*}
+	\displaystyle A^*=\overline{A^{T}}
+	\end{align*}
+	dimana $\overline{A}$ adalah Konjugat Kompleks dari entri-entri (elemen) dari matriks $A$.\\
+	(note : jika $A$ merupakan matriks dengan entri bilangan real, maka $A^*=A^{T}$.)
+	Contoh :\\
+	Misalkan $A=\begin{pmatrix}
+	0 & 5+i & \sqrt{2}i\\ 
+	5-i & 6 & 7\\ 
+	-\sqrt{2}i & 4 & 3
+	\end{pmatrix}$ sehingga $A^{T}=\begin{pmatrix}
+	0 & 5-i & -\sqrt{2}i\\ 
+	5+i & 6 & 4\\ 
+	\sqrt{2}i & 7 & 3
+	\end{pmatrix}$ maka\\
+	$A^*=\begin{pmatrix}
+	0 & 5+i & \sqrt{2}i\\ 
+	5-i & 6 & 4\\ 
+	-\sqrt{2}i & 7 & 3
+	\end{pmatrix}$. 
+	Perlu diketahui bahwa $\overline{A^{T}}=\left(\overline{A}\right)^{T}=\overline{\left(A^{T}\right)}$ sehingga ditranspose dahulu atau di konjugat dahulu hasilnya sama (bukti diserahkan kepada pembaca)\\
+	
+	Sifat-Sifat dari Konjugat Transpose Matriks Kompleks yang perlu diketahui :
+	\begin{enumerate}
+		\item[a.] $\left(A^*\right)^*=A$.
+		\item[b.] $\left(A+B\right)^*=A^*+B^*$.
+		\item[c.] $\left(k\, A\right)^*=k\, A^*$.
+		\item[d.] $\left(AB\right)^*=B^*A^*$.
+	\end{enumerate}
+	\textbf{Bukti} :\\
+	Diberikan sebarang matriks $A,B$ dan $k\in \mathbb{C}$. Tinjau
+	\begin{enumerate}
+		\item[a.] $(A^*)^*=\left(\overline{\left(\overline{A}\right)^{T}}\right)^{T}$ karena tranpose dan konjugat suatu matriks bersifat komutatif sehingga berlaku
+		\begin{align*}
+		\left(\overline{\left(\overline{A}\right)^{T}}\right)^{T} &= \left(\left(\overline{\left(\overline{A}\right)}\right)^{T}\right)^{T} \\
+		&= \left(\left(A\right)^{T}\right)^{T} \\
+		&= A
+		\end{align*}
+		\item[b.] $\left( A+B\right)^* = $
+	\end{enumerate}
+	
+	\item \textbf{Matriks Uniter}\\
+	\\
+	\hspace*{0.5cm} Diketahui bahwa Matriks real $A$ ortogonal jika dan hanya jika $A^{-1}=A^{T}$. Di dalam sistem bilangan kompleks, sifat ortogonal tersebut dapat diperumum menjadi $A^{-1}=A^*$ dan dapat disebut sebagai matriks uniter.\\
+	\\
+	Matriks Kompleks $A$ dikatakan \textit{Uniter} jika
+	\begin{align*}
+		A^{-1}=A^*.	 	
+	\end{align*}
+	\hspace*{0.5cm} Diketahui bahwa suatu matriks real ortogonal jika dan hanya jika vektor baris (atau kolom) merupakan himpunan ortonormal. Untuk Matriks Kompleks, sifat karakteristik matriks tersebut disebut Uniter. Misalkan diberikan himpunan vektor ${v_{1},v_{2},v_{3},\ldots,v_{m}}\in \mathbb{C}^{m}$ (Ruang Euclid Kompleks) ortonormal jika memenuhi kedua sifat berikut
+	\begin{enumerate}
+		\item[a.] $\left\|v_{i}\right\|=1,\; i=1,2,\ldots,m$.
+		\item[b.] $v_{i}^*\cdot v_{j}=0,\; i\ne j$.
+	\end{enumerate}
+	(Bukti diserahkan kepada pembaca)
+	
+	
+	
+	\item \textbf{Matriks Hermitian}\\
+	\\
+	\hspace*{0.5cm} Suatu Matriks Real dikatakan simetri jika matriks tersebut sama dengan Transposenya. Di dalam bilangan kompleks, lebih banyak digunakan tipe Matriks dengan sifat Konjugat Transpose dari Matriks tersebut sama dengan dirinya sendiri. Matriks tersebut dikatakan sebagai Matriks Hermitian yang diberikan nama dari Matematikawan Prancis Charles Hermite ($1822$-$1901$).
+	\\
+	Matriks persegi $A$ dikatakan \textit{Hermitian} jika
+	\begin{align*}
+	A=A^*
+	\end{align*}
+	
+	Suatu Matriks Hermitian $A$ dengan ordo $n\times n$ jika dan hanya jika memenuhi kedua  kondisi berikut :
+	\begin{enumerate}
+		\item[a.] semua entri diagonalnya merupakan bilangan real.
+		\item[b.] $a_{ij}=\overline{a_{ji}}$ untuk setiap $i,j\in\left[1,n\right]$ .
+	\end{enumerate}
+	(Bukti diserahkan kepada pembaca)
+	
+	\textbf{Teorema $1$.}\\
+	$(\Rightarrow)$
+	Jika $A$ merupakan Matriks Hermitian, maka semua nilai eigen dari Matriks $A$ bernilai Real.\\
+	\textbf{Bukti} :\\
+	Misalkan $\lambda$ merupakan nilai eigen dari Matriks $A$ dengan $A$ matriks berordo $n\times n$ dan $v=\begin{pmatrix}
+	a_{1}+b_{1}i \\
+	a_{2}+b_{2}i \\
+	\vdots		 \\	
+	a_{n}+b_{n}i \\ 
+	\end{pmatrix}$ yang saling bersesuaian dengan masing-masing nilai eigennya.\\
+	Sehingga didapatkan $A\lambda = \lambda v$, selanjutnya kalikan kedua ruas pada bagian kiri dengan $v^*$ sehingga diperoleh
+	\begin{align*}
+	v^*Av &=v^*(\lambda v)=\lambda (v^*v)= \lambda (\overline{v}v) = \lambda \left\|v\right\|^{2} \\
+	&=\ds \lambda \left(\sum_{i=1}^{n}\; a_{i}^{2}+b_{i}^{2}\right) 
+	\end{align*}
+	Sebelumnya diketahui bahwa $(v^{*}Av)=(v^{*}(Av))^*=(Av)^*(v^*)^*=v^*A^*v=v^*Av$\\
+	Hal tersebut menjelaskan bahwa $v^*Av$ merupakan matriks Hermitian dengan ordo $1\times 1$.\\
+	Padahal Matriks Hermitian dengan ordo $1\times 1$ hanya dipenuhi saat $A=(c)$ dimana $c$ merupakan bilangan real sehingga diperoleh bahwa $v^*Av$ merupakan bilangan real.\\
+	Selanjutnya, karena $v^*Av=\displaystyle \lambda \left(\sum_{i=1}^{n}\; a_{i}^{2}+b_{i}^{2}\right)$ dan jelas $\displaystyle \left(\sum_{i=1}^{n}\; a_{i}^{2}+b_{i}^{2}\right)$ merupakan bilangan real maka haruslah $\lambda$ merupakan bilangan real. $(Q.E.D.)$\\
+	\\
+	\hspace*{0.5cm} Diketahui bahwa Matriks Simetri berentri Real merupakan \textit{ortogonally diagonallizable}, disini kita akan membuktikan bahwa Matriks Hermitian merupakan \textit{unitarily diagonalizable}. Suatu Matriks persegi $A$ dikatakan \textit{unitarily diagonalizable} jika terdapat matriks uniter $P$ sehingga
+	\begin{align*}
+	P^{-1}AP
+	\end{align*}
+	merupakan matriks diagonal. Karena $P$ matriks uniter, maka $P^{-1}=P^*$, Hal ini sama saja mengatakan bahwa Suatu Matriks persegi $A$ dikatakan \textit{unitarily diagonalizable} jika terdapat matriks uniter $P$ sehingga $P^*AP$ merupakan matriks diagonal.\\
+	$(\Leftarrow)$ (Bukti diserahkan kepada pembaca)\\
+	\\
+	\textbf{Teorema 2.}\\
+	Jika $A$ merupakan Hermitian Matriks $n\times n$, maka
+	\begin{enumerate}
+		\item[a.] vektor eigen yang bersesuaian dengan nilai eigen yang berbeda adalah ortogonal.
+		\item[b.] matriks $A$ \textit{unitarily diagonalizable}.
+	\end{enumerate}
+	\textbf{Bukti} :\\
+	\begin{enumerate}
+		\item[a.] Ambil sebarang $v_{1}$ dan $v_{2}$ merupakan vektor eigen dari matriks $A$ yang bersesuaian dengan nilai eigen berbeda(real) $\lambda_{1}$ dan $\lambda_{2}$, Sehingga didapat $Av_{1}=\lambda_{1}v_{1}$ dan $Av_{2}=\lambda_{2}v_{2}$.\\
+		Tinjau
+		\begin{align}
+		(Av_{1})^*v_{2}&=v_{1}^*A^*v_{2}=v_{1}^*Av_{2}=v_{1}^*\lambda v_{2}=\lambda_{2}v_{1}^*v_{2} \\
+		(Av_{1})^*v_{2}&=(\lambda_{1} v_{1})^*v_{2} = \lambda_{1} v_{1}^* v_{2}
+		\end{align} 
+		Sehingga persamaan $(1)$ dikurangi persamaan $(2)$ diperoleh
+		\begin{align*}
+		\lambda_{2}v_{1}^*v_{2}-\lambda_{1} v_{1}^* v_{2} &= 0\\
+		(\lambda_{2}-\lambda_{1})v_{1}^*v_{2} &=0\\
+		v_{1}^*v_{2} &=0  & \text{ saat } \lambda_{1}\ne \lambda_{2}.
+		\end{align*}
+		Karena untuk sebarang $v_{1}, v_{2}$ yang merupakan vektor eigen dari matriks $A$ berlaku $v_{1}^*v_{2}=0$ dengan kata lain ortogonal. $(Q.E.D.)$ 
+		\item[b.] Teorema Spektral (Diserahkan kepada pembaca)\\
+		Akan dibuktikan terlebih dahulu melewati Teorema Schur's\\
+		Paling tidak ada $1$ nilai eigen yaitu $\lambda_{1}$ yang bersesuaian dengan $v_{1}$ dimana terdapat $u_{1}$ sehingga $\left\|u_{1}\right\|=1$.
+	\end{enumerate}
+	Contoh :\\
+	
+	\newpage
+	
+	\begin{bfseries}
+		\begin{theorem}
+			Misalkan $A\in \mathbb{C}^{n\times n}$ matriks Hermite dengan nilai-nilai eigen $\lambda_{1}\le \lambda_{2}\le \cdots\le \lambda_{n}$. Untuk $i=1,2,\ldots ,n$, misalkan $u_{i}$ vektor eigen $A$ untuk $\lambda_{i}$. Jika $1\le k<l\le n$, maka
+			\begin{align*}
+			\lambda_{k} \le x^{\ast} A x \le \lambda_{l},
+			\end{align*}
+			untuk semua $x\in \left\langle u_{k},u_{k+1},\ldots ,u_{l} \right \rangle, x^{\ast}x = 1.$
+		\end{theorem}
+	\end{bfseries}
+	
+	
+	\begin{bfseries}
+		\begin{cor}[Teorema Rayleigh-Ritz]
+			Misalkan $A\in \mathbb{C}^{n\times n}$ matriks Hermite dengan nilai-nilai eigen $\lambda_{1}\le \lambda_{2}\le \cdots\le \lambda_{n}$. Maka 
+			\begin{align*}
+			\ds \lambda_{1} = \min_{x^{\ast}x=1}\, x^{\ast}Ax , \text{ dan } \lambda_{n}= \max_{x^{\ast}x=1}\, x^{\ast}Ax
+			\end{align*}
+			Ekspresi rasio $\ds \frac{x^{\ast}Ax}{x^{\ast}x}$ disebut sebagai \textbf{kuosien Rayleigh}
+		\end{cor}
+	\end{bfseries}
+
+	
+	\begin{bfseries}
+		\begin{theorem}[Teorema Sela]
+			Misalkan $A\in \mathbb{C}^{n\times n}$ matriks Hermite dan $B\in \mathbb{C}^{k\times k}$ submatriks utama dari $A$. Misalkan pula nilai-nilai eigen $A$ adalah $\lambda_{1}\le \lambda_{2}\le \cdots\le \lambda_{k}$ dan nilai-nilai eigen $B$ adalah $\mu_{1}\le \mu_{2}\le \cdots\le \mu_{k}$. Maka 
+			\begin{align*}
+			\ds \lambda_{i}\leq \mu_{i}\leq \lambda_{n+i-k} , \text{ untuk } i=1,2,\ldots ,k.
+			\end{align*}
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{cor}
+			Misalkan $A\in \mathbb{C}^{n\times n}$ matriks Hermite dan $B\in \mathbb{C}^{(n-1)\times (n-1)}$ submatriks utama dari $A$. Misalkan pula nilai-nilai karakteristik $A$ adalah $\lambda_{1}\le \lambda_{2}\le \cdots\le \lambda_{n}$ dan nilai-nilai karakteristik $B$ adalah $\mu_{1}\le \mu_{2}\le \cdots\le \mu_{n-1}$. Maka 
+			\begin{align*}
+			\ds \lambda_{1}\leq \mu_{1}\leq \lambda_{2}\leq \mu_{2}\leq \cdots \leq \lambda_{n-1} \leq \mu_{n-1} \leq \lambda_{n}.
+			\end{align*}
+		\end{cor}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Misalkan $A\in \mathbb{C}^{n\times n}$ matriks Hermite. Maka :
+			\begin{enumerate}
+				\item[(a)] $A$ definit tak-negatif jika dan hanya jika terdapat matriks $B\in \mathbb{C}^{n\times n}$ yang memenuhi $A=BB^{\ast}$, dan  
+				\item[(b)] $A$ definit positif jika dan hanya jika terdapat matriks tak-singular $B\in \mathbb{C}^{n\times n}$ yang memenuhi $A=BB^{\ast}$. 
+			\end{enumerate}
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Misalkan $A\in \mathbb{C}^{n\times n}$ matriks Hermite. Maka $A$ definit positif jika dan hanya jika terdapat matriks segitiga bawah tak-singular $L\in \mathbb{C}^{n\times n}$ yang memenuhi $A=LL^{\ast}$. Hanya ada satu matriks $L$ yang semua komponen diagonal utamanya real positif.
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{cor}
+			Misalkan $A\in \mathbb{C}^{m\times n}$. Maka Inti$(A^{\ast})=$Inti$(AA^{\ast})$, yaitu untuk setiap $x\in \mathbb{C}^{m}$ berlaku $A^{\ast}x=0$ jika dan hanya jika $AA^{\ast}x=0$
+		\end{cor}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Misalkan $A\in \mathbb{C}^{m\times n}$, $A\ne 0$. Maka terdapat bilangan asli $r\leq \min\left\{m,n\right\},$ matriks diagonal $D\in\mathbb{R}^{r\times r}$ yang semua komponen diagonal utamanya positif dan matriks-matriks uniter $U\in \mathbb{C}^{m\times m}$, $V\in \mathbb{C}^{n\times n}$, sehingga $A=U\begin{pmatrix}
+			D & 0 \\ 0 & 0
+			\end{pmatrix}V^{\ast}$
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{defn}
+			Misalkan $A\in \mathbb{C}^{m\times n}$, $A\ne 0$. Misalkan pula $\lambda_{1},\lambda_{2},\ldots,\lambda_{r}$ nilai-nilai eigen positif $AA^{\ast}$, $u_{1},u_{2},\ldots,u_{r}$ dan $v_{1},v_{2},\ldots,v_{r}$. Dikatakan $\sqrt{\lambda}$ adalah nilai singular dari $A$, dan untuk $i=1,2,\ldots,r$, vektor $u_{i}[v_{i}]$ dinamakan vektor singular kiri[kanan] matriks $A$.
+		\end{defn}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{defn}
+			Dekomposisi $A=U\begin{pmatrix}
+			D & 0 \\ 0 & 0
+			\end{pmatrix}V^{\ast}$ yang diberikan pada Teorema 0.5 dinamakan dekomposisi nilai singular matriks $A$.
+		\end{defn}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Misalkan $A\in \mathbb{C}^{m\times n}$, $A\ne 0$. Maka terdapat bilangan asli $r\leq \min\left\{m,n\right\},$ matriks diagonal $D\in\mathbb{R}^{r\times r}$ yang semua komponen diagonal utamanya positif dan matriks-matriks $U\in \mathbb{C}^{m\times r}$, $V\in \mathbb{C}^{n\times r}$, yang memenuhi $U^{\ast}U=I_{r}=V^{\ast}V$, sehingga $A=UDV^{\ast}$
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}[Faktorisasi kutub]
+			Misalkan $A\in \mathbb{C}^{m\times n}$ dengan $m\leq n$. Maka terdapat matriks definit tak-negatif $P\in \mathbb{C}^{m\times m}$ dan $U\in \mathbb{C}^{m\times n}$ yang memenuhi $UU^{\ast}=I_{m}$ sehingga $PU=A$ dan rank$(P)=$rank$(A)$ dan matriks $P$ tunggal.
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}[Dekomposisi Schur]
+			Misalkan $A\in \mathbb{C}^{n\times n}$. Maka terdapat matriks uniter $U\in \mathbb{C}^{n\times n}$ dan matriks segitiga atas $R\in \mathbb{C}^{n\times n}$ yang memenuhi $A=URU^{\ast}$.
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Misalkan $A\in \mathbb{C}^{n\times n}$ dengan rank$(A)=r$. Jika determinan submatriks utama pemuka berorde $k$ dari $A$ taknol, $k=1,2,\ldots,r$ maka $A=LR$, untuk suatu matriks segitigas bawah $L\in \mathbb{C}^{n\times n}$ dan matriks segitiga atas $R\in \mathbb{C}^{n\times n}$.
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Misalkan $A\in \mathbb{C}^{n\times n}$ dengan $m\geq n$. Jika rank$(A)=n$, maka $A=QR$, untuk suatu $Q\in \mathbb{C}^{m\times n}$ yang memenuhi $Q^{\ast}Q=I_{n}$ dan matriks segitiga atas $R\in \mathbb{C}^{n\times n}$. Dengan menambahkan syarat semua komponen diagonal utama $R$ real positif, faktorisasi ini tunggal.
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Misalkan $v\in \mathbb{C}^{n}, v\ne 0$. Maka $\ds H=I_{n}-\frac{2vv^{\ast}}{v^{\ast}v}$ adalah refleksi terhadap subruang $v^{\bot}=\left\{ \left. y\in \mathbb{C}^{n} \right|  y^{\ast}v=0\right\}$, yaitu $Hx=y-\alpha v$, untuk setiap $x=y+\alpha v \in \mathbb{C}^{n}$, dengan $y\in v^{\bot}, \alpha \in \mathbb{C}$.
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Refleksi Householder $H$ adalah matriks Hermite, memenuhi $H^{2}=I_{n}$, dan $H$ Uniter.
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Matriks $G\in \mathbb{R}^{n\times n}$ dinamakan rotasi Givens jika $G=P \begin{bmatrix}
+			\cos \theta & -\sin \theta & 0 \\
+			\sin \theta & \cos \theta & 0 \\
+			0 & 0 & I_{n-2}
+			\end{bmatrix} P^{t}$, untuk suatu matriks permutasi $P$ dan skalar $\theta \in \mathbb{R}$
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{defn}
+			Matriks $A=[a_{ij}]\in \mathbb{C}^{n\times n}$ dikatakan matriks Hessenberg jika $a_{ij}=0$, untuk semua $1\leq j+1< i\leq n$.
+		\end{defn}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Misalkan $A\in \mathbb{C}^{n\times n}$. Maka terdapat matriks uniter $U\in \mathbb{C}^{n\times n}$ dan matriks Hessenberg $S\in \mathbb{C}^{n\times n}$ yang memenuhi $A=USU^{\ast}$.
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Misalkan $A\in \mathbb{R}^{n\times n}$. Maka terdapat matriks ortogonal $Q\in \mathbb{R}^{n\times n}$ sehingga berlaku $Q^{t}AQ = \begin{bmatrix}
+			\Lambda_{1} & N_{12} & N_{13} & \cdots & N_{1k} \\
+			0 & \Lambda_{2} & N_{23} & \cdots & N_{2k} \\
+			0 & 0 & \Lambda_{3} & \cdots & N_{3k} \\
+			\vdots & \vdots & \vdots &\ddots & \vdots \\
+			0 & 0 & 0 & \cdots & \Lambda_{k}	
+			\end{bmatrix}$ dimana $\Lambda_{1},\Lambda_{2},\ldots,\Lambda_{k}$ adalah matriks-matriks berukuran $1\times 1$ atau $2\times 2$, dan $\lambda_{i}$ berukuran $2\times 2$ hanya jika nilai-nilai eigennya tak real.
+		\end{theorem}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{sifat}[Ketaksamaan Holder]
+			Misalkan $p,q\in \mathbb{R}$ positif dan memenuhi $\ds \frac{1}{p}+\frac{1}{q}=1$. Maka $\left| y^{\ast}x \right|\leq \left\| x \right\|_{p} \left\| y\right\|_{p}$, untuk setiap $x,y\in \mathbb{C}^{n}$. 
+		\end{sifat}
+	\end{bfseries}
+
+	\begin{bfseries}
+		\begin{theorem}
+			Misalkan $p\in \mathbb{R}, p\geq 1$. Maka untuk setiap $x,y\in \mathbb{C}^{n}$ berlaku $\ds \left(\sum_{i=1}^{n} \left| x_{i}+y_{i} \right|^{p} \right)^{1/p} \leq \left(\sum_{i=1}^{n} \left| x_{i} \right|^{p} \right)^{1/p} + \left(\sum_{i=1}^{n} \left| y_{i} \right|^{p} \right)^{1/p}$.
+		\end{theorem}
+	\end{bfseries}
+
+
+
+
+
+
+	\newpage 
+	
+	\begin{center}
+		\textbf{Tugas I Analisis Matriks}
+	\end{center}
+	
+	
+	Nama : Uzumaki Nagato Tenshou\\
+	Mata Kuliah : Analisis Matriks Bu Intan\\
+	NIM : 20119014\\
+	
+	\begin{enumerate}
+		\begin{bfseries}
+			\item[1.] Suatu Matriks $A$ dikatakan \textit{skew}-simetri jika $A=-A^{T}$ dan dikatakan \textit{skew}-Hermitian jika $A=-A^*$.\\
+			Buktikan 
+			\begin{enumerate}
+				\item[(a)] Jika $A=[a_{ij}]$ \textit{skew}-simetri maka $a_{jj}=0$ untuk setiap $j$.
+				\item[(b)] Jika $A=[a_{ij}]$ \textit{skew}-Hermitian maka setiap $a_{jj}=0$ adalah imajiner murni (yaitu kelipatan $i$)
+				\item[(c)] Jika $A$ simetri maka $B=iA$ \textit{skew}-Hermitian.
+			\end{enumerate}
+		\end{bfseries}
+		
+		\textbf{Jawab :}
+		
+		\begin{enumerate}
+			\item[(a)] Misalkan $A=P+Q$ dimana $P=diag(\lambda_{11},\lambda_{22},\ldots,\lambda_{nn})$ dan $Q=A-P$ sehingga diperoleh juga bahwa $A^{T}=P+R$ atau $-A^{T}=-P-R$ dimana $R=A^{T}-P$ dikarenakan diagonal dari matriks $A$ jika di Transpose diagonal utamanya tidak berubah. sehingga karena $A$ merupakan matriks \textit{skew}-simetri berlaku $A=-A^{T}$ maka diagonal dari matriks $A$ adalah $diag(\lambda_{11},\lambda_{22},\ldots,\lambda_{nn})$ dan diagonal dari matriks $-A^{T}$ adalah $diag(-\lambda_{11},-\lambda_{22},-\ldots,-\lambda_{nn})$ sehingga kesamaan pada diagonalnya terjadi saat $\lambda_{jj}=-\lambda_{jj}$ untuk setiap $j$ dengan kata lain $2 \lambda_{jj}=\lambda_{jj} = 0$ untuk setiap $j$. $(Q.E.D.)$
+			\item[(b)] bilangan $z=a+bi$ dikatakan imajiner murni jika $Re(z)=a=0$. Tinjau bagian diagonal utamanya saja untuk $A$ maka diagonal utamanya adalah $A=diag(\lambda_{11},\lambda_{22},\ldots,\lambda_{nn})$ sehingga untuk $A^{T}$ diagonal utamanya juga tetap sama sehingga\\ $A^{T}=diag(\lambda_{11},\lambda_{22},\ldots,\lambda_{nn})$ dan 
+			\begin{align*}
+			-A^*=-\overline{(A^{T})} &=-\overline{diag(\lambda_{11},\lambda_{22},\ldots,\lambda_{nn})} \\
+			&= -diag(\overline{\lambda_{11}},\overline{\lambda_{22}},\ldots,\overline{\lambda_{nn}}) \\
+			&= diag(-\overline{\lambda_{11}},-\overline{\lambda_{22}},\ldots,-\overline{\lambda_{nn}})
+			\end{align*}
+			karena $A$ matriks \textit{skew}-Hermitian dengan kata lain $A=-A^*$ jika memandang dari diagonal utama matriksnya saja maka haruslah $\lambda_{jj}=-\overline{\lambda_{jj}}$ untuk setiap $j$. Untuk setiap $1\le j\le n$ dimisalkan $\lambda_{jj}=a+bi$ untuk suatu $a,b$ bilangan real sehingga diperoleh $a+bi = -\overline{a+bi}=-(a-bi)=-a+bi\Rightarrow 2a=0 \Rightarrow a=0$ sehingga didapat $\lambda_{jj}=bi$ dengan $b$ bilangan real. Hal ini membuktikan bahwa $\lambda_{jj}$ merupakan bilangan kuadrat murni untuk setiap $1\leq j \leq n$. (Q.E.D)
+			\item[(c)] Diketahui bahwa $A$ merupakan matriks simetri sehingga berlaku $A=A^{T}$, Jika $B=iA$ akan ditunjukan bahwa $B$ merupakan \textit{skew}-Hermitian dengan kata lain $B^*=-B$.\\
+			Ambil sebarang $A$ matriks simetri Tinjau
+			\begin{align*}
+			B^* &= (iA)^* \\
+			&= i^* A^* \\
+			&= \overline{i} A^* \\
+			&= -i A^*			
+			\end{align*}
+			Karena $A$ matriks simetri maka semua entri matriksnya merupakan bilangan real sehingga $A=A^T$ karena konjugatnya sama dengan matriks itu sendiri dan karena $A$ merupakan matriks simetri maka berlaku $A^*=A^T=A$ sehingga
+			\begin{align*}
+			B^* = -iA^* = -iA = -(iA) =-B
+			\end{align*} 
+			Jadi, untuk sebarang matriks simetri $A$ maka $B$ merupakan \textit{skew}-Hermitian. $(Q.E.D)$ 
+		\end{enumerate}
+		
+		
+		\begin{bfseries}
+		\item[2.] Misalkan $A$ dan $B$ matriks $m\times n$. Jika $Ax=Bx$ untuk setiap $x$ matriks kolom $n\times 1$, buktikan $A=B$.	
+		\end{bfseries}
+		
+		\textbf{Jawab :}
+		
+		Ambil sebarang matriks $x$ matriks kolom $n\times 1$ taknol sehingga tinjau 
+		\begin{align*}
+		Ax &=Bx \\
+		Ax-Bx &=0 \\
+		(A_{mn}-B_{mn})x &=0	
+		\end{align*}
+		Karena $x$ merupakan sebarang matriks kolom taknol maka $x\ne 0$ sehingga haruslah $A_{mn}-B_{mn}=0$ dengan kata lain $A=B$. Tetapi karena untuk $x=0$ matriks $A\ne B$ juga memenuhi $Ax=Bx$ maka pernyataan pada soal belum dapat dibuktikan secara umum yaitu sebarang $x$ matriks kolom $n\times 1$ kecuali untuk $x\ne 0$, Jadi soal diatas belum terbukti secara keseluruhan.
+		
+		
+		\begin{bfseries}
+		\item[3.] Manakah yang merupakan subruang bagi $M_{nn}(\mathbb{R})$?
+		\begin{enumerate}
+			\item[(a)] Himpunan semua matriks simetri.
+			%\item[(b)] Himpunan semua matriks diagonal.
+			\item[(c)] Himpunan semua matriks tak singular.
+			%\item[(d)] Himpunan semua matriks segitiga atas.
+			\item[(e)] Fix suatu matriks $A$, def himpunan $X = \left\{ B\in M_{nn} : AB=BA \right\}$.
+			\item[(f)] Himpunan semua matriks $A$ yang memenuhi $A^{2}=A$.
+		\end{enumerate}		
+		\end{bfseries}
+		
+		\textbf{Jawab :}
+		
+		\begin{enumerate}
+			\item[(a)] Misalkan $S$ merupakan himpunan semua matriks simetri maka untuk suatu $A\in S$ dipenuhi sifat matriks simetri yaitu $A=A^{T}$.\\
+			Ambil sebarang $k\in \mathbb{R}$ dan $A_{1}, A_{2}\in S$ akan dibuktikan bahwa $S$ merupakan subruang dengan kata lain $\forall A_{1}, A_{2}\in S$ dan $k\in \mathbb{R}$ berlaku $kA_{1}+A_{2}\in S$.\\
+			Tinjau
+			\begin{align*}
+			(kA_{1}+A_{2})^{T} &= (kA_{1})^{T}+(A_{2})^{T} \\
+			&= k(A_{1})^{T}+(A_{2})^{T} \\
+			&= kA_{1}+A_{2}
+			\end{align*}
+			karena berlaku $(kA_{1}+A_{2})^{T}=kA_{1}+A_{2}$ dengan kata lain $kA_{1}+A_{2}$ juga merupakan matriks simetri. Jadi, terbukti bahwa $S$ merupakan subruang di $M_{nn}(\mathbb{R})$ $(Q.E.D)$
+			\item[(c)] Misalkan $P$ merupakan Himpunan matriks tak singular, maka $P$ bukan merupakan subruang dari $M_{nn}(\mathbb{R})$ karena $0_{nn}$ tidak berada di $P$ tetapi pasti ada suatu matriks $A$ yang tak singular sehingga $A+B=0_{nn}$ dimana $B=-A$ (invers penjumlahan dari matriks real ukuran $n\times n$) dan juga karena $A$ matriks tak singular maka $-A$ juga tak singular karena $\det(-A)=-\det(A)$ Jadi sifat tertutup terhadap penjumlahan tidak dapat dipertahankan sehingga himpunan $P$ bukan subruang dari $M_{nn}(\mathbb{R})$.
+			\item[(e)] Akan dibuktikan bahwa $X$ merupakan subruang dari $M_{nn}(\mathbb{R})$.\\
+			Ambil sebarang $B_{1},B_{2}\in X$ dan $k\in \mathbb{R}$ karena $B_{1},B_{2}\in X$ maka untuk suatu matriks $A$ berlaku $AB_{1}=B_{1}A$ dan $AB_{2}=B_{2}A$ \\
+			Tinjau
+			\begin{align*}
+			A(kB_{1}+B_{2}) &= A(kB_{1})+A(B_{2}) \\
+			&= k(AB_{1})+(AB_{2}) \\
+			&= k(B_{1}A)+(B_{2}A) \\
+			&= (kB_{1})A+(B_{2})A \\
+			&= (kB_{1}+B_{2})A 
+			\end{align*}	
+			Sehingga jelas $kB_{1}+B_{2}\in X$, jadi terbukti bahwa $X$ merupakan subruang dari $M_{nn}(\mathbb{R})$. $(Q.E.D.)$
+			\item[(f)] Suatu Matriks $A$ dikatakan idempoten jika $A^{2}=A$. Ambil suatu matriks $A\in X$ tak singular yang idempoten sehingga terdapat $A^{-1}$ dengan $AA^{-1}=I_{nn}$, dan diketahui juga $(A+A^{-1})^{2}=A^{2}+AA^{-1}+A^{-1}A+(A^{-1})^{2}=A^{2}+2I+(A^{-1})^{2}$ sehingga $\ds (A+A^{-1})^{2}=A+A^{-1}\Rightarrow A^{2}-A+\frac{1}{4}+(A^{-1})^{2}-A^{-1}+\frac{1}{4} =-\frac{3}{2} \Rightarrow \left(A-\frac{1}{2}\right)^{2}+\left(A^{-1}+\frac{1}{2}\right)^{2}=-\frac{3}{2}$ Hal ini berakibat bahwa tidak ada solusi yang memenuhi sehingga tidak berlaku $(A+A^{-1})^{2}=A+A^{-1}$ maka ada matriks idempoten $A$ yang tidak memenuhi sifat tertutup terhadap penjumlahan dalam subruang $M_{nn}(\mathbb{R})$.
+		\end{enumerate}
+	
+	
+		\begin{bfseries}
+		\item[4.] Misalkan $A$ matriks $m\times n$ adalah suatu matriks sedemikian sehingga 
+		\begin{align*}
+		\displaystyle \sum_{j=1}^{n}\; a_{ij}=0
+		\end{align*}
+		untuk setiap $i=1,2,\ldots,m.$\\
+		Jelaskan mengapa kolom-kolom $A$ bergantung linear (dan akibatnnya rank $A<n$).	
+		\end{bfseries}
+		
+		\textbf{Jawab :}
+		
+		Diketahui bahwa $\displaystyle \sum_{j=1}^{n}\; a_{ij}=a_{i1}+a_{i2}+a_{i3}+\cdots+a_{in}=0$ untuk setiap $1\le i \le m$ artinya jumlahan entri pada tiap baris dari matriks tersebut bernilai 0. Akan ditunjukkan bahwa Himpunan vektor kolom (atau baris) dari matriks tersebut bergantung linear atau tidak bebas linear. Ambil $\alpha_{1},\alpha_{2},\alpha_{3},\ldots,\alpha_{m}=1$ lapangan atas himpunan bilangan real dan himpunan vektor kolom dari matriks $A$ yaitu $\left\{ C_{1},C_{2},C_{3},\ldots,C_{m}\right\}$ lalu tinjau bahwa
+		\begin{align*}
+		\alpha_{1}C_{1}+\alpha_{2}C_{2}+\alpha_{3}C_{3}+\cdots+\alpha_{m}C_{m} &= C_{1}+C_{2}+C_{3}+\cdots+C_{m} = 0_{m}
+		\end{align*}
+		Hal ini berlaku karena jumlahan elemen setiap baris pada matriks tersebut selalu bernilai $0$ sehingga jumlahan vektor kolom tersebut bernilai $0_{m}$ dengan kata lain terdapat $\alpha_{i}=1\ne 0$ untuk setiap $1\le i\le m$ yang mana sifat dari bergantung linear dipenuhi dan ketunggalan dari solusi $\alpha_{i}$ juga tidak tunggal karena untuk $\alpha_{i}=k$ untuk setiap $1\le i\le m$ dan suatu bilangan real $k$ juga bernilai $0$ sehingga berdasarkan sifat dari suatu matriks bergantung linear berakibat nullitas dari $A$ tidak nol padahal diketahui bahwa null $A$+rank $A=n$ sehingga karena null taknol (null$>0$) maka rank $A=n -$  null $A < n $. $(Q.E.D.)$ 
+		
+		\begin{bfseries}
+		\item[5.] Jika $A$ suatu matriks $m\times n$, jelaskan mengapa $A^{T}A=0$ mengakibatkan $A=0$.	
+		\end{bfseries}
+		
+		\textbf{Jawab :}
+		Asumsikan setiap entri dari matriks $A$ bernilai real.\\
+		Misalkan $A=\begin{pmatrix}
+		a_{11} & a_{12} & a_{13} & \cdots & a_{1n}\\ 
+		a_{21} & a_{22} & a_{23} & \cdots & a_{2n}\\ 
+		\vdots & \vdots & \vdots & \vdots & \vdots\\ 
+		a_{m1} & a_{m2} & a_{m3} & \cdots & a_{mn}
+		\end{pmatrix}$ dan $A^{T}=\begin{pmatrix}
+		a_{11} & a_{21} & \cdots & a_{m1}\\ 
+		a_{12} & a_{22} & \cdots & a_{m2}\\ 
+		a_{13} & a_{23} & \cdots & a_{m3}\\
+		\vdots & \vdots & \vdots & \vdots\\ 
+		a_{1n} & a_{2n} & \cdots & a_{mn}\\
+		\end{pmatrix}$
+		sehingga cukup tinjau bagian diagonal utama dari $A^{T}A$ diperoleh
+		\begin{align*}
+		A^{T}A=\begin{pmatrix}
+		\displaystyle \sum_{k=1}^{n}\, a_{1k}^{2} & \cdots & \cdots & \cdots & \cdots \\ 
+		\cdots & \displaystyle \sum_{k=1}^{n}\, a_{2k}^{2} & \cdots & \cdots & \cdots \\ 
+		\cdots & \cdots & \displaystyle \sum_{k=1}^{n}\, a_{3k}^{2} & \cdots & \cdots \\ 
+		\vdots & \vdots & \vdots & \vdots & \vdots \\ 
+		\cdots & \cdots & \cdots & \cdots & \displaystyle \sum_{k=1}^{n}\, a_{mk}^{2}
+		\end{pmatrix}=0_{nn}
+		\end{align*}
+		sehingga karena jumlah kuadrat dari $a_{ij}$ untuk setiap $1\le i\le m$ bernilai $0$ sehingga satu-satunya solusi real yang dipenuhi saat masing-masingnya bernilai $0$ atau $a_{ij}^{2}=0$ dan jelas bahwa $a_{ij}=0$ untuk setiap $i$ dengan $j=1,2,3,\ldots,n$ dengan kata lain diperoleh $a_{ij}=0$ untuk setiap $1\le i,j\le n$ atau dapat ditulis $A=0_{nn}$ $(Q.E.D.)$ 
+		
+		\begin{bfseries}
+		\item[6.] Suatu operator linear $N$ dikatakan \textit{nilpoten} dengan indeks $k$ jika $N^k=0$ tetapi $N^{k-1}\ne 0$. Jika $N:\mathbb{R}^{n}\rightarrow \mathbb{R}^{n}$ \textit{nilpoten} dengan indeks $n$ dan jika $N^{n-1}(y)\ne 0$ untuk suatu $y\in \mathbb{R}^{n}$, buktikan $B=\left\{y,N(y),N^{2}(y),\ldots,N^{n-1}(y)\right\}$ basis $\mathbb{R}^{n}$, dan tentukan $\left[N\right]_{B}.$
+		\end{bfseries}
+		
+		\textbf{Jawab :}
+		
+		Akan dibuktikan himpunan $B$ merupakan basis sehingga untuk suatu $k_{i}\in \mathbb{R}$ untuk $i=0,1,2,\ldots,n-1$ akan dicari solusi dari $k_{0}y+k_{1}N(y)+k_{2}N^{2}(y)+\cdots+k_{n-1}N^{n-1}(y)=0$.\\
+		komposisikan kedua ruas dengan $N^{n-1}(y)$ dan menggunakan sifat-sifat dari operator linear juga $N^{k}=0$ untuk $k\geq n$ didapat
+		\begin{align*}
+		N^{n-1}(k_{0}y+k_{1}N(y)+k_{2}N^{2}(y)+\cdots+k_{n-1}N^{n-1}(y)) &= N^{n-1}(0) \\
+		\Rightarrow N^{n-1}(k_{0}y)+N^{n-1}(k_{1}N(y))+N^{n-1}(k_{2}N^{2}(y))+\cdots+N^{n-1}(k_{n-1}N^{n-1}(y)) &=0 \\
+		\Rightarrow k_{0}N^{n-1}(y)+k_{1}N^{n}(y)+k_{2}N^{n+1}(y)+\cdots+k_{n-1}N^{2n-2}(y)&= 0 \\
+		k_{0} N^{n-1}(y) = 0
+		\end{align*}
+		padahal $N^{n-1}(y)\ne 0$ sehingga haruslah $k_{0}=0$.//
+		Dengan menggunakan $k_{0}=0$ cukup diinduksi dengan proses yang sama dengan mengalikan $N^{n-1-i}$ untuk $i=2,3,\ldots,n-2$ juga diperoleh $k_{1}=k_{2}=\cdots=k_{n-1}=0$, Hal ini membuktikan bahwa solusi dari $k_{i}=0$ merupakan solusi trivial dengan kata lain sifat basis terpenuhi jadi $B$ merupakan basis $\mathbb{R}^{n}$. $(Q.E.D.)$
+
+		\begin{bfseries}
+		\item[7.] Jelaskan mengapa $\left\langle x,y\right\rangle = 0$ untuk setiap $x\in V$ mengakibatkan $y=0$.
+		\end{bfseries}
+		
+		\textbf{Jawab :}
+		
+		Karena $V$ merupakan ruang vektor atas lapangan $\mathbb{F}$ dan $\left\langle \cdot,\cdot\right\rangle:V\times V\rightarrow \mathbb{F}$ merupakan ruang hasil kali dalam dan untuk setiap $x\in V$ berlaku $\left\langle x,y\right\rangle=0$ artinya setiap $x$ ortogonal dengan $y$, Misalkan basis dari ruang vektor $V$ dinyatakan sebagai $P=\left\{ v_{1},v_{2},v_{3},\ldots,v_{n} \right\}$ dan untuk suatu $\alpha_{i}\in \mathbb{F}$ maka ada kombinasi linear sehingga $x=\ds \sum_{i=1}^{n}\, \alpha_{i}v_{i}$ maka hasil kali dalamnya menjadi
+		\begin{align*}
+		\left\langle x,y\right\rangle &= \left\langle \ds \sum_{i=1}^{n}\, \alpha_{i}v_{i},y\right\rangle \\
+		&= \ds \sum_{i=1}^{n} \left\langle \alpha_{i}v_{i},y\right\rangle \\
+		&= \ds \sum_{i=1}^{n} \left|\alpha_{i}\right| \left\langle v_{i},y\right\rangle
+		\end{align*}
+		sifat-sifat hasil kali dalam yang digunakan\\
+		untuk setiap $x,y,z\in V$ dan $\alpha\in \mathbb{F}$ berlaku
+		\begin{enumerate}
+			\item[(HKD1)] $\left\langle x,y\right\rangle\geq 0$ dan $\left\langle x,x\right\rangle=0$ jika dan hanya jika $x=0$.
+			\item[(HKD2)] $\left\langle x,y\right\rangle=\overline{\left\langle y,x\right\rangle}$.
+			\item[(HKD3)] $\left\langle \alpha x,y\right\rangle=\left| \alpha\right|\left\langle x,y\right\rangle$.
+			\item[(HKD4)] $\left\langle x+y,z\right\rangle=\left\langle x,z\right\rangle+\left\langle z,y\right\rangle$
+		\end{enumerate}
+		Karena $v_{i}$ merupakan basis pada $V$ dan $y\in P$ maka agar $\left\langle x,y\right\rangle=0$ haruslah $v_{i}$ dan $y$ saling ortogonal padahal $y$ merupakan salah satu dari $v_{i}$ sehingga ada nilai yang taknol, agar dipastikan saling ortogonal haruslah $y=0$ karena basis $v_{i}$ ortogonal dengan $0_{V}$. $(Q.E.D.)$
+		
+		\begin{bfseries}
+		\item[10.] \begin{enumerate}
+			\item[(a)] Jelaskan mengapa $\det(A^*)=\overline{\det(A)}$
+			\item[(b)] Jelaskan mengapa $\left| \det(Q)\right|=1$ jika $Q$ uniter $(U^*=U^{-1})$ dan $\det(Q)=\pm 1$ jika $Q$ ortogonal $(Q^{T}=Q^{-1})$.
+		\end{enumerate}	
+		\end{bfseries}
+		
+		\textbf{Jawab :}
+		
+		\begin{enumerate}
+			\item[(a)] Misalkan $A=\left[a_{ij}\right]_{nn}$ dimana $1\le i,j\le n$ dan $a_{ij}$ merepresentasikan entri/elemen pada baris ke-$i$ dan kolom ke-$j$ dari matriks $A$ tersebut, juga diketahui bahwa $\det(A^{T})=\det(A)$ maka
+			\begin{align*}
+			\det(A^*) &=\det\left(\left(\overline{A}\right)^{T}\right) \\
+			&= \det(\overline{A}) \\
+			&= \det(\overline{\left[a_{ij}\right]_{nn}})
+			\end{align*}
+			Misalkan $A_{ij}$ merupakan matriks yang menghapus baris ke-$i$ dan kolom ke-$j$ akan dicari $\det(A)$ dengan menggunakan ekspansi Laplace (kofaktor) maka determinan dari matriks $A$ dengan mengambil baris pertama sebagai basis ekspansi tersebut dapat dinyatakan sebagai
+			\begin{align*}
+			\det(A) &= \ds \sum_{i\text{ atau }j}\, (-1)^{i+j}a_{ij}A_{ij} \\
+			&= \ds \sum_{j=1}^{n}\, (-1)^{1+j}a_{1j}A_{1j} 
+			\end{align*}
+			sehingga determinan dari $A^*$ diperoleh
+			\begin{align*}
+			\det(A^*)=\det(\overline{\left[a_{ij}\right]_{nn}}) &= \ds \sum_{j=1}^{n}\, (-1)^{1+j}\overline{a_{1j}}\overline{A_{1j}} \\
+			&= \ds \sum_{j=1}^{n}\, (-1)^{1+j}\overline{a_{1j}A_{1j}} \\
+			&= \ds \sum_{j=1}^{n}\, \overline{(-1)^{1+j}a_{1j}A_{1j}} \\
+			&= \ds \overline{\sum_{j=1}^{n}\, (-1)^{1+j}a_{1j}A_{1j}} \\
+			&= \overline{\det(A)} 
+			\end{align*}
+			perlu diketahui bahwa sifat konjugat dari bilangan kompleks tertutup terhadap penjumlahan dan perkalian sehingga berlaku seperti persamaan diatas, Jadi, terbukti bahwa $\det(A^*)=\overline{\det(A)}$ $(Q.E.D.)$
+			
+			\item[(b)] Diketahui bahwa $\det(A^{T})=\det(A)$ dan $\det(A^{-1})=\ds \frac{1}{\det(A)}$ juga matriks uniter dan ortogonal merupakan matriks tak singular sehingga determinan dari matriks dengan sifat tersebut taknol.\\
+			Pertama, diketahui $Q$ matriks uniter maka berlaku $Q^{*}=Q^{-1}$ sehingga
+			\begin{center}
+				\begin{tabular}{llll}
+				& $\det(Q^*)$                 & $=$ & $\det(Q^{-1})$                    \\
+				$\Rightarrow$ & $\overline{\det(Q)}$        & $=$ & $\displaystyle \frac{1}{\det(Q)}$ \\
+				$\Rightarrow$ & $\overline{\det(Q)}\det(Q)$ & $=$ & $1$                               \\
+				$\Rightarrow$ & $\left| \det(Q)\right|^{2}$ & $=$ & $1$                               \\
+				$\Rightarrow$ & $\left| \det(Q)\right|$     & $=$ & $1>0$                              
+			\end{tabular}
+			\end{center}
+			karena modulus selalu positif sehingga diperoleh $\left|\det(Q)\right|=1$. $(Q.E.D.)$\\
+			Kedua, diketahui $Q$ ortogonal maka berlaku $Q^{T}=Q^{-1}$ sehingga
+			\begin{center}
+				\begin{tabular}{llll}
+					& $\det(Q^T)$   & $=$ & $\det(Q^{-1})$                    \\
+					$\Rightarrow$ & $\det(Q)$     & $=$ & $\displaystyle \frac{1}{\det(Q)}$ \\
+					$\Rightarrow$ & $\det^{2}(Q)$ & $=$ & $1$                               \\
+					$\Rightarrow$ & $\det(Q)$     & $=$ & $\pm 1$   $(Q.E.D.)$                          
+				\end{tabular}
+			\end{center}
+	\end{enumerate}
+		
+	\end{enumerate}
+	
+
+
+
+
+
+
+
+
+\newpage 
+
+\begin{center}
+	\textbf{Tugas II Analisis Matriks}
+\end{center}
+
+
+Nama : Dimaz Wisnu Adipradana\\
+Mata Kuliah : Analisis Matriks (MA5021) Bu Intan\\
+NIM : 20119014\\
+
+\begin{enumerate}
+	\begin{bfseries}
+		\item[1.] Misalkan $S_{n}$ adalah himpunan semua permutasi pada $\left\{1,2,\cdots,n\right\}$ dan $Perm_{n}$ adalah himpunan semua matriks permutasi $n\times n$. Tunjukkan bahwa terdapat pemetaan bijektif $\Phi:S_{n}\rightarrow Perm_{n}$ yang memenuhi $\Phi(\sigma \circ \tau)=\Phi(\sigma)\Phi(\tau)$, untuk semua $\sigma, \tau\in S_{n}$.
+	\end{bfseries}
+	\- \\ \- \\
+	\textbf{Jawab :} Pertama, akan ditunjukkan bahwa setiap permutasi dapat diperoleh suatu matriks permutasi secara tunggal.\\
+	Diberikan suatu permutasi $\sigma\in S_{n}: \left\{ 1,2,\cdots,n\right\}\rightarrow \left\{ 1,2,\cdots,n\right\}$ sehingga $\sigma(k)\in \left\{ 1,2,\cdots,n\right\}$ untuk $k\in \left\{ 1,2,\cdots,n\right\}$. Misalkan dari permutasi $\sigma$ diperoleh matriks permutasi $P_{1}$ dan $P_{2}$ akan ditunjukkan bahwa $P_{1}=P_{2}$. Untuk setiap baris ke-$i$ dan kolom ke-$j$ dari $P_{1}$, dapat dinyatakan sebagai $P_{1}=[a_{ij}]=[\delta_{i\,\sigma(j)}]$ dengan cara yang sama untuk $P_{2}$ juga didapat $P_{2}=[b_{ij}]=[\delta_{i\,\sigma(j)}]$ sehingga setiap kolom dan baris dari $P_{1}$ dan $P_{2}$ bernilai sama, dengan kata lain diperoleh bahwa $P_{1}=P_{2}$ hal ini menyatakan bahwa setiap permutasi dapat diperoleh secara tunggal matriks permtutasinya.\\
+	Selanjutnya, dikonstruksi $\Phi: S_{n}\rightarrow Perm_{n}$ dengan $\Phi(\sigma)=P_{\sigma}$ untuk suatu $\sigma \in S_{n}$, sehingga permutasi $\sigma$ dapat dinyatakan dengan tunggal oleh suatu matriks permutasi yaitu $P_{\sigma}=[p_{ij}]=[\delta_{i\sigma(j)}]$. Ambil sebarang $\sigma_{1},\sigma(2)\in S_{n}$, Tinjau
+	\begin{center}
+		\begin{tabular}{llll}
+		& $\Phi(\sigma_{1})$           & $=$ & $\Phi(\sigma_{2})$           \\
+		$\Rightarrow$ & $P_{\sigma_{1}}$             & $=$ & $P_{\sigma_{2}}$             \\
+		$\Rightarrow$ & $[\delta_{i\, \sigma_{1}(j)}]$ & $=$ & $[\delta_{i\, \sigma_{2}(j)}]$
+	\end{tabular}
+	\end{center}
+	Karena suatu matriks permutasi tunggal sehingga haruslah $\sigma_{1}(j)=\sigma_{2}(j)$ untuk setiap $j\in \left\{ 1,2,\cdots,n \right\}$ dengan kata lain haruslah $\sigma_{1}=\sigma_{2}$ hal ini mengatakan bahwa pemetaan $\Phi$ merupakan pemetaan yang satu-satu(injektif).\\
+	\hspace*{0.5cm} Selanjutnya, diketahui juga bahwa $\left| S_{n}\right|=\left|Perm_{n}\right|=n!$ hal ini berkaitan dengan teorema jika kardinalitas dari domain dan kodomain sama maka pemetaan tersebut bersifat pada sehingga pemetaan $\Phi$ adalah pemetaan pada(surjektif) dan akibatnya semua kodomain mempunyai peta di $S_{n}$ dengan tunggal dan juga berlaku dari domain memetakan tepat satu ke kodomain $Perm_{n}$ dengan kata lain pemetaan $\Phi$ \textit{well defined}(terdefinisi dengan baik). Dari ketiga sifat dari pemetaan $\Phi$ yang telah dibuktikan yaitu \textit{well defined}, injektif dan surjektif dengan kata lain mengatakan bahwa pemetaan $\Phi$ bijektif.\\
+	\hspace*{0.5cm} Terakhir, akan dibuktikan bahwa $\Phi(\sigma \circ \tau)=\Phi(\sigma)\Phi(\tau)$, untuk semua $\sigma, \tau\in S_{n}$.\\
+	Ambil sebarang $\sigma, \tau\in S_{n}$. Tinjau
+	\begin{align*}
+	\Phi(\sigma \circ \tau) &= P_{\sigma \circ \tau} \\
+	&= P_{\tau}P_{\sigma} \\
+	&= \Phi(\tau)\Phi(\sigma)
+	\end{align*}
+	Hal ini mengatakan bahwa pemetaan $\Phi$ merupakan pemetaan homomorfisma, lebih jauh lagi karena pemetaan $\Phi(\sigma)=P_{\sigma}$ untuk setiap $\sigma\in S_{n}$ bersifat homomorfisma dan bijektif maka pemetaan $\Phi$ merupakan pemetaan isomorfisma. $(Q.E.D.)$
+	
+	\begin{bfseries}
+		\item[2.] Misalkan $P_{1},P_{2},\cdots,P_{k}$ matriks-matriks permutasi berorde $n$. Misalkan $\alpha_{i}\in \mathbb{R}, 0\le \alpha_{i}\le 1, i=1,2,\cdots,k$. Tunjukkan bahwa jumlah semua komponen pada setiap baris matriks $\ds A=\sum_{i=1}^{k}\, \alpha_{i}P_{i}$ konstan, demikian pula dengan jumlah semua komponen setiap kolomnya.
+	\end{bfseries}
+	\- \\ \- \\
+	\textbf{Jawab :} Misalkan $\sigma_{i}$ merupakan permutasi dari masing-masing matriks permutasi $P_{i}$ untuk $1\le i\le k$.\\
+	Untuk baris ke-$i$ dan kolom ke-$j$ dari matriks $A$ didefinisikan $\ds B_{\sum} = \begin{pmatrix} 
+	\ds \sum_{j=1}^{n}\, a_{1j}\\ 
+	\ds \sum_{j=1}^{n}\, a_{2j}\\ 
+	\vdots \\
+	\ds \sum_{j=1}^{n}\, a_{nj}
+	\end{pmatrix}\in \mathbb{R}^{n}$ merupakan vektor kolom dari jumlahan elemen dari tiap baris pada matriks $A$ juga didefinisikan $\ds K_{\sum} = \begin{pmatrix}
+	\ds \sum_{i=1}^{n}\, a_{i1} & 
+	\ds \sum_{i=1}^{n}\, a_{i2} & 
+	\cdots &
+	\ds \sum_{i=1}^{n}\, a_{in}
+	\end{pmatrix}\in \mathbb{R}^{n}$ merupakan vektor baris dari jumlahan elemen dari tiap kolom pada matriks $A$. Selanjutnya, terlihat bahwa $P_{m}$ untuk setiap $m\in \{ 1,2,\cdots,k\}$ merupakan matriks permutasi sehingga masing-masing baris ataupun kolomnya tepat satu elemennya bernilai $1$ dan $n-1$ sisanya bernilai $0$ akibatnya 
+	\begin{align*}
+	B_{\sum} &= \begin{pmatrix} 
+	\ds \sum_{j=1}^{n}\, a_{1j}\\ 
+	\ds \sum_{j=1}^{n}\, a_{2j}\\ 
+	\vdots \\
+	\ds \sum_{j=1}^{n}\, a_{nj}
+	\end{pmatrix} 
+	= \begin{pmatrix} 
+	\ds \sum_{j=1}^{n}\, \alpha_{j} p_{1j}\\ 
+	\ds \sum_{j=1}^{n}\, \alpha_{j}p_{2j}\\ 
+	\vdots \\
+	\ds \sum_{j=1}^{n}\, \alpha_{j}p_{nj}
+	\end{pmatrix} 
+	= \begin{pmatrix} 
+	\ds \sum_{j=1}^{n}\,(\alpha_{j}\delta_{1j})\\ 
+	\ds \sum_{j=1}^{n}\,(\alpha_{j}\delta_{2j})\\ 
+	\vdots \\
+	\ds \sum_{j=1}^{n}\,(\alpha_{j}\delta_{nj})
+	\end{pmatrix} 
+	= \begin{pmatrix} 
+	\ds \sum_{j=1}^{n}\,\alpha_{j}(1+0+\cdots+0)\\ 
+	\ds \sum_{j=1}^{n}\,\alpha_{j}(1+0+\cdots+0)\\ 
+	\vdots \\
+	\ds \sum_{j=1}^{n}\,\alpha_{j}(1+0+\cdots+0)
+	\end{pmatrix}  \\
+	&= \begin{pmatrix} 
+	\ds \sum_{j=1}^{n}\,\alpha_{j}\\ 
+	\ds \sum_{j=1}^{n}\,\alpha_{j}\\ 
+	\vdots \\
+	\ds \sum_{j=1}^{n}\,\alpha_{j}
+	\end{pmatrix} 
+	= \begin{pmatrix} 
+	\ds l\\ 
+	\ds l\\ 
+	\vdots \\
+	\ds l
+	\end{pmatrix}
+	\end{align*}
+	Dengan cara yang sama untuk jumlahan kolom diperoleh
+	\begin{align*}
+	\ds K_{\sum} &= \begin{pmatrix}
+	\ds \sum_{i=1}^{n}\, a_{i1} & 
+	\ds \sum_{i=1}^{n}\, a_{i2} & 
+	\cdots &
+	\ds \sum_{i=1}^{n}\, a_{in}
+	\end{pmatrix}
+	= \begin{pmatrix}
+	\ds \sum_{i=1}^{n}\, a_{i1} \\
+	\ds \sum_{i=1}^{n}\, a_{i2} \\ 
+	\cdots \\
+	\ds \sum_{i=1}^{n}\, a_{in}
+	\end{pmatrix}^{T}
+	= \begin{pmatrix} 
+	\ds \sum_{i=1}^{n}\,(\alpha_{i}\delta_{i1})\\ 
+	\ds \sum_{i=1}^{n}\,(\alpha_{j}\delta_{i2})\\ 
+	\vdots \\
+	\ds \sum_{i=1}^{n}\,(\alpha_{j}\delta_{in})
+	\end{pmatrix}^{T} \\
+	&= \begin{pmatrix} 
+	\ds \sum_{i=1}^{n}\,\alpha_{i}(1+0+\cdots+0)\\ 
+	\ds \sum_{i=1}^{n}\,\alpha_{i}(1+0+\cdots+0)\\ 
+	\vdots \\
+	\ds \sum_{i=1}^{n}\,\alpha_{i}(1+0+\cdots+0)
+	\end{pmatrix}^{T} 
+	= \begin{pmatrix} 
+	\ds \sum_{i=1}^{n}\,\alpha_{i}\\ 
+	\ds \sum_{i=1}^{n}\,\alpha_{i}\\ 
+	\vdots \\
+	\ds \sum_{i=1}^{n}\,\alpha_{i}
+	\end{pmatrix}^{T} 
+	= \begin{pmatrix} 
+	\ds l & 
+	\ds l & 
+	\cdots &
+	\ds l
+	\end{pmatrix}
+	\end{align*}
+	Sehingga terlihat bahwa $B_{\sum}$ dan $K_{\sum}$ merupakan vektor dengan entri-entri bernilai konstan(sama) yaitu $l=\ds \sum_{i=1}^{n}\, \alpha_{i}$. $(Q.E.D.)$
+	
+
+	\begin{bfseries}
+		\item[3.] Misalkan $\tau = \begin{pmatrix}
+		1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+		2 & 6 & 5 & 7 & 3 & 1 & 4 
+		\end{pmatrix}$.
+		\begin{enumerate}
+			\item[(a)] Tentukan matriks permutasi $P\in \mathbb{C}^{7\times 7}$ yang memenuhi $P_{\tau}=P\; \text{diag}(S_{1},S_{2},S_{3})\; P^{-1}$ dengan $S_{1}=\begin{pmatrix}
+			0 & 1 & 0 \\
+			0 & 0 & 1 \\
+			1 & 0 & 0
+			\end{pmatrix}$ dan $S_{2}=S_{3}=\begin{pmatrix}
+			0 & 1 \\
+			1 & 0
+			\end{pmatrix}$.
+			\item[(b)] Tentukan nilai-nilai dan vektor-vektor eigen matriks $P$.
+		\end{enumerate}
+	\end{bfseries}	 
+	\- \\
+	\textbf{Jawab :} Diketahui $\tau = \begin{pmatrix}
+	1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+	2 & 6 & 5 & 7 & 3 & 1 & 4 
+	\end{pmatrix} = \begin{pmatrix} 1 & 2 & 6 \end{pmatrix} \begin{pmatrix} 3 & 5 \end{pmatrix} \begin{pmatrix} 4 & 7 \end{pmatrix} $\\ dan $\ds P_{\tau} = \begin{pmatrix}
+	0 & 1 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 1 & 0\\ 
+	0 & 0 & 0 & 0 & 1 & 0 & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 1\\ 
+	0 & 0 & 1 & 0 & 0 & 0 & 0\\ 
+	1 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 1 & 0 & 0 & 0
+	\end{pmatrix}$ juga $\text{diag}(S_{1}, S_{2}, S_{3})=\begin{pmatrix}
+	0 & 1 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 1 & 0 & 0 & 0 & 0\\ 
+	1 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 0 & 1 & 0 & 0\\ 
+	0 & 0 & 0 & 1 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 1\\ 
+	0 & 0 & 0 & 0 & 0 & 1 & 0
+	\end{pmatrix}$
+	
+	\begin{enumerate}
+	\item[(a)] Akan dicari $P$ yang memenuhi $P_{\tau}=P\, \text{diag}(S_{1}, S_{2}, S_{3})\, P^{-1} $ dengan kata lain $P_{\tau}P = P\, \text{diag}(S_{1}, S_{2}, S_{3})$, Untuk baris ke-$i$ dan kolom ke-$j$ dari matriks $P$ misalkan $P=[p_{ij}]$ sehingga diperoleh
+	\begin{align*}
+	\begin{pmatrix}
+	0 & 1 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 1 & 0\\ 
+	0 & 0 & 0 & 0 & 1 & 0 & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 1\\ 
+	0 & 0 & 1 & 0 & 0 & 0 & 0\\ 
+	1 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 1 & 0 & 0 & 0
+	\end{pmatrix} [p_{ij}] &= 
+	[p_{ij}] \begin{pmatrix}
+	0 & 1 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 1 & 0 & 0 & 0 & 0\\ 
+	1 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 0 & 1 & 0 & 0\\ 
+	0 & 0 & 0 & 1 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 1\\ 
+	0 & 0 & 0 & 0 & 0 & 1 & 0
+	\end{pmatrix} \\
+	\Rightarrow 
+	\begin{pmatrix}
+	p_{21} & p_{22} & p_{23} & p_{24} & p_{25} & p_{26} & p_{27}\\ 
+	p_{61} & p_{62} & p_{63} & p_{64} & p_{65} & p_{66} & p_{67}\\ 
+	p_{51} & p_{52} & p_{53} & p_{54} & p_{55} & p_{56} & p_{57}\\ 
+	p_{71} & p_{72} & p_{73} & p_{74} & p_{75} & p_{76} & p_{77}\\ 
+	p_{31} & p_{32} & p_{33} & p_{34} & p_{35} & p_{36} & p_{37}\\ 
+	p_{11} & p_{12} & p_{13} & p_{14} & p_{15} & p_{16} & p_{17}\\ 
+	p_{41} & p_{42} & p_{43} & p_{44} & p_{45} & p_{46} & p_{47}
+	\end{pmatrix} &= 
+	\begin{pmatrix}
+	p_{13} & p_{11} & p_{12} & p_{15} & p_{14} & p_{17} & p_{16}\\ 
+	p_{23} & p_{21} & p_{22} & p_{25} & p_{24} & p_{27} & p_{26}\\ 
+	p_{33} & p_{31} & p_{32} & p_{35} & p_{34} & p_{37} & p_{36}\\ 
+	p_{43} & p_{41} & p_{42} & p_{45} & p_{44} & p_{47} & p_{46}\\ 
+	p_{53} & p_{51} & p_{52} & p_{55} & p_{54} & p_{57} & p_{56}\\ 
+	p_{63} & p_{61} & p_{62} & p_{65} & p_{64} & p_{67} & p_{66}\\ 
+	p_{73} & p_{71} & p_{72} & p_{75} & p_{74} & p_{77} & p_{76}
+	\end{pmatrix}
+	\end{align*}
+	dari persamaan diatas salah satunya diperoleh $P=\begin{pmatrix}
+	1 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 1 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 1 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 1 & 0\\ 
+	0 & 0 & 0 & 0 & 1 & 0 & 0\\ 
+	0 & 0 & 1 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 1
+	\end{pmatrix} = \begin{pmatrix}
+		3 & 4 & 6
+	\end{pmatrix} $
+	
+	\item[(b)]
+	Pertama, akan dicari nilai eigen dari matriks $P_{\sigma}$ yang diperoleh dari $(a)$ dengan $\sigma =\begin{pmatrix}
+	3 & 4 & 6
+	\end{pmatrix}$ yaitu dengan meninjau
+	\begin{align*}
+		\det(tI-P_{\sigma}) &= \det\begin{pmatrix}
+		t-1 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+		0 & t-1 & 0 & 0 & 0 & 0 & 0\\ 
+		0 & 0 & t & -1 & 0 & 0 & 0\\ 
+		0 & 0 & 0 & t & 0 & -1 & 0\\ 
+		0 & 0 & 0 & 0 & t-1 & 0 & 0\\ 
+		0 & 0 & -1 & 0 & 0 & t & 0\\ 
+		0 & 0 & 0 & 0 & 0 & 0 & t-1
+		\end{pmatrix} \\
+		&= 
+		(t-1)^{2} \det\begin{pmatrix}
+		t & -1 & 0 & 0 & 0\\ 
+		0 & t & 0 & -1 & 0\\ 
+		0 & 0 & t-1 & 0 & 0\\ 
+		-1 & 0 & 0 & t & 0\\ 
+		0 & 0 & 0 & 0 & t-1
+		\end{pmatrix} \\
+		&= \cdots \text{ (dengan induksi diperoleh)} \\
+		&= (t-1)^{5}(t^2+t+1) 
+	\end{align*}
+	sehingga didapat nilai eigennya adalah $t=1, t=\frac{-1\pm \sqrt{3}i}{2}$\\
+	selanjutnya akan dicari vektor eigennya masing-masing, untuk $t=1$ 
+	Selanjutnya akan dicari vektor eigen dari $P_{\tau}$\\
+	untuk $t=1$ misalkan $v_{1}$ adalah vektor eigennya tinjau\\
+	\begin{align*}
+	(tI-P_{\sigma})v&=0_{7} \\
+	\begin{pmatrix}
+	0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & 1 & -1 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & 1 & 0 & -1 & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & -1 & 0 & 0 & 1 & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 0 & 0
+	\end{pmatrix} \begin{pmatrix}
+	x_{1} \\
+	x_{2} \\
+	x_{3} \\
+	x_{4} \\
+	x_{5} \\
+	x_{6} \\
+	x_{7}
+	\end{pmatrix}&= \begin{pmatrix}
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+	0
+	\end{pmatrix} 
+	\end{align*}
+	Sehingga didapat $x_{3}=x_{4}=x_{6}=p$ dan misalkan parameter lain $x_{1}=q, x_{2}=r, x_{5}=s, x_{7}=t$ vektor eigennya adalah 
+	$v=\begin{pmatrix}
+	q \\ r \\ p \\ p \\ s \\ p \\ t 
+	\end{pmatrix} = q
+	\begin{pmatrix}
+	1 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 
+	\end{pmatrix} + 
+	r\begin{pmatrix}
+	0 \\ 1 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 
+	\end{pmatrix} + p
+	\begin{pmatrix}
+	0 \\ 0 \\ 1 \\ 1 \\ 0 \\ 1 \\ 0 
+	\end{pmatrix} + s 
+	\begin{pmatrix}
+	0 \\ 0 \\ 0 \\ 0 \\ 1 \\ 0 \\ 0 
+	\end{pmatrix} +t \begin{pmatrix}
+	0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 1 
+	\end{pmatrix}$ maka $\begin{pmatrix}
+	1 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 
+	\end{pmatrix},  
+	\begin{pmatrix}
+	0 \\ 1 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 
+	\end{pmatrix}, 
+	\begin{pmatrix}
+	0 \\ 0 \\ 1 \\ 1 \\ 0 \\ 1 \\ 0 
+	\end{pmatrix}, 
+	\begin{pmatrix}
+	0 \\ 0 \\ 0 \\ 0 \\ 1 \\ 0 \\ 0 
+	\end{pmatrix}, \begin{pmatrix}
+	0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 1 
+	\end{pmatrix}$ adalah ke-$5$ vektor eigennya.\\
+	untuk $t=\frac{-1+\sqrt{3}i}{2}$ diperoleh	
+	\begin{align*}
+	\begin{pmatrix}
+	\frac{-3+ \sqrt{3}i}{2} & 0 & 0 & 0 & 0 & 0 & 0\\ 
+	0 & \frac{-3+ \sqrt{3}i}{2} & 0 & 0 & 0 & 0 & 0\\ 
+	0 & 0 & \frac{-1+ \sqrt{3}i}{2} & -1 & 0 & 0 & 0\\ 
+	0 & 0 & 0 & \frac{-1+ \sqrt{3}i}{2} & 0 & -1 & 0\\ 
+	0 & 0 & 0 & 0 & \frac{-3+ \sqrt{3}i}{2} & 0 & 0\\ 
+	0 & 0 & -1 & 0 & 0 & \frac{-1+ \sqrt{3}i}{2} & 0\\ 
+	0 & 0 & 0 & 0 & 0 & 0 & \frac{-3+ \sqrt{3}i}{2}
+	\end{pmatrix} \begin{pmatrix}
+	x_{1} \\
+	x_{2} \\
+	x_{3} \\
+	x_{4} \\
+	x_{5} \\
+	x_{6} \\
+	x_{7}
+	\end{pmatrix}&= \begin{pmatrix}
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+	0
+	\end{pmatrix} 
+	\end{align*}
+	sehingga didapat vektor eigen lainnya adalah $\begin{pmatrix}
+	1 \\
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+	1 \end{pmatrix}$ dan $\begin{pmatrix}
+	0 \\
+	1 \\
+	0 \\
+	0 \\
+	0 \\
+	1 \\
+	0 \end{pmatrix}$ Jadi, vektor eigennya adalah $\begin{pmatrix}
+	1 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 
+	\end{pmatrix},  
+	\begin{pmatrix}
+	0 \\ 1 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 
+	\end{pmatrix}, 
+	\begin{pmatrix}
+	0 \\ 0 \\ 1 \\ 1 \\ 0 \\ 1 \\ 0 
+	\end{pmatrix}, 
+	\begin{pmatrix}
+	0 \\ 0 \\ 0 \\ 0 \\ 1 \\ 0 \\ 0 
+	\end{pmatrix}, \begin{pmatrix}
+	0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 1 
+	\end{pmatrix}, \begin{pmatrix}
+	1 \\
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+	0 \\
+	1 \end{pmatrix}, \text{ dan } \begin{pmatrix}
+	0 \\
+	1 \\
+	0 \\
+	0 \\
+	0 \\
+	1 \\
+	0 \end{pmatrix}$.
+	
+	
+%	\begin{align*}
+%	\det(tI-P_{\sigma}) &= \det\begin{pmatrix}
+%	t & -1 & 0 & 0 & 0 & 0 & 0\\ 
+%	0 & t & 0 & 0 & 0 & -1 & 0\\ 
+%	0 & 0 & t & 0 & -1 & 0 & 0\\ 
+%	0 & 0 & 0 & t & 0 & 0 & -1\\ 
+%	0 & 0 & -1 & 0 & t & 0 & 0\\ 
+%	-1 & 0 & 0 & 0 & 0 & t & 0\\ 
+%	0 & 0 & 0 & -1 & 0 & 0 & t
+%	\end{pmatrix} \\
+%	&= 
+%	t \det\begin{pmatrix}
+%	t & 0 & 0 & 0 & -1 & 0\\ 
+%	0 & t & 0 & -1 & 0 & 0\\ 
+%	0 & 0 & t & 0 & 0 & -1\\ 
+%	0 & -1 & 0 & t & 0 & 0\\ 
+%	0 & 0 & 0 & 0 & t & 0\\ 
+%	0 & 0 & -1 & 0 & 0 & t
+%	\end{pmatrix} +1
+%	\det\begin{pmatrix}
+%	-1 & 0 & 0 & 0 & 0 & 0\\ 
+%	t & 0 & 0 & 0 & -1 & 0\\ 
+%	0 & t & 0 & -1 & 0 & 0\\ 
+%	0 & 0 & t & 0 & 0 & -1\\ 
+%	0 & -1 & 0 & t & 0 & 0\\ 
+%	0 & 0 & -1 & 0 & 0 & t
+%	\end{pmatrix} \\
+%	&= 
+%	t^{2} \det\begin{pmatrix}
+%	t & 0 & -1 & 0 & 0\\ 
+%	0 & t & 0 & 0 & -1\\ 
+%	-1 & 0 & t & 0 & 0\\ 
+%	0 & 0 & 0 & t & 0\\ 
+%	0 & -1 & 0 & 0 & t
+%	\end{pmatrix} +1(-1)
+%	\det\begin{pmatrix}
+%	0 & 0 & 0 & -1 & 0\\ 
+%	t & 0 & -1 & 0 & 0\\ 
+%	0 & t & 0 & 0 & -1\\ 
+%	-1 & 0 & t & 0 & 0\\ 
+%	0 & -1 & 0 & 0 & t
+%	\end{pmatrix}\\
+%	&= \cdots \text{ (dengan induksi diperoleh)} \\
+%	&= t^{7} +1(-1)1(-1)1(-1)1 = t^7 -1
+%	\end{align*}
+%	Sehingga diperoleh persamaan karakteristik $p(t)=t^7-1$ maka saat $t^7-1=0$ didapat unity of root untuk akar kompleks dari $t^7=1$ yaitu cis$\left(\frac{2\pi k}{7}\right)$ untuk $k=0,1,2,3,4,5,6$ dimisalkan $\omega=\text{cis}\left(\frac{2\pi}{7}\right)$ sehingga akar-akarnya merupakan anggota dari himpunan $\{1,\omega,\omega^{2},\omega^{3},\cdots,\omega^{6}\}$ yang mana adalah nilai-nilai eigen dari dari matriks $P_{\tau}$. Selanjutnya akan dicari vektor eigen dari $P_{\tau}$\\
+%	untuk $t=1$ misalkan $v_{1}$ adalah vektor eigennya tinjau\\
+%	\begin{align*}
+%	(tI-P_{\tau})v&=0_{7} \\
+%	\begin{pmatrix}
+%	1 & -1 & 0 & 0 & 0 & 0 & 0\\ 
+%	0 & 1 & 0 & 0 & 0 & -1 & 0\\ 
+%	0 & 0 & 1 & 0 & -1 & 0 & 0\\ 
+%	0 & 0 & 0 & 1 & 0 & 0 & -1\\ 
+%	0 & 0 & -1 & 0 & 1 & 0 & 0\\ 
+%	-1 & 0 & 0 & 0 & 0 & 1 & 0\\ 
+%	0 & 0 & 0 & -1 & 0 & 0 & 1
+%	\end{pmatrix} \begin{pmatrix}
+%	x_{1} \\
+%	x_{2} \\
+%	x_{3} \\
+%	x_{4} \\
+%	x_{5} \\
+%	x_{6} \\
+%	x_{7}
+%	\end{pmatrix}&= \begin{pmatrix}
+%	0 \\
+%	0 \\
+%	0 \\
+%	0 \\
+%	0 \\
+%	0 \\
+%	0
+%	\end{pmatrix} 
+%	\end{align*}
+%	Sehingga didapat vektor eigennya adalah $$
+	\end{enumerate}
+	
+
+	\begin{bfseries}
+		\item[4.] Misalkan $A\in \mathbb{C}^{n\times n}$. Tunjukkan bahwa $A$ dapat didiagonalkan oleh matriks uniter menjadi matriks diagonal yang semua komponen utamanya imajiner murni jika dan hanya jika $A^*=-A$.
+	\end{bfseries}
+	\- \\ \- \\
+	\textbf{Jawab :} $(\Rightarrow)$ Diberikan matriks $A$ dapat didiagonalkan oleh suatu matriks uniter yang semua komponen diagonal utamanya merupakan imajiner murni atau ditulis $z=bi$ dimana $b\in \mathbb{R}$, juga diketahui terdapat matriks uniter $U$ dimana $U=\begin{pmatrix}
+	v_{1} & v_{2} & v_{3} & \cdots & v_{n}
+	\end{pmatrix}$ dimana $v_{i}$ merupakan vektor eigen dari matriks $A$ untuk $i=1,2,3,\cdots,n$ sehingga $A=UDU^*$ dimana $D=\text{diag}(b_{1}i,b_{2}i,\cdots,b_{n}i)$ untuk $b_{i}\in \mathbb{R}$. Tinjau
+	\begin{align*}
+	A^* &= (UDU^*)^* \\
+	&= (U^*)^*(D)^*(U)^* \\
+	&= U \left(\text{diag}(b_{1}i,b_{2}i,\cdots,b_{n}i)\right)^* U^* \\
+	&= U \overline{\text{ diag}(b_{1}i,b_{2}i,\cdots,b_{n}i)} U^* \\
+	&= U \text{ diag}(\overline{b_{1}i},\overline{b_{2}i},\cdots,\overline{b_{n}i}) U^* \\
+	&= U \text{ diag}(-b_{1}i,-b_{2}i,\cdots,-b_{n}i) U^* \\
+	&= -U \text{ diag}(b_{1}i,b_{2}i,\cdots,b_{n}i) U^* \\
+	&= -U D U^* \\
+	&= -A
+	\end{align*} 
+	Hal ini menyatakan bahwa matriks $A$ merupakan matriks \textit{skew}-Hermitian.\\
+	\- \\
+	$(\Leftarrow)$ Diberikan $A$ matriks \textit{skew}-Hermitian yaitu $A^*=-A$. Misalkan $\lambda_{i}$ dan $v_{i}$ berturut-turut merupakan nilai dan vektor eigen dari matriks $A$ yang bersesuaian untuk $i=1,2,\cdots,n$ sehingga berlaku $Av_{i}=\lambda_{i}v_{i}$. Tinjau
+	\begin{align*}
+	(Av_{i})^* &= (v_{i})^* A^* \\
+	&= (v_{i})^*(-A) = -(v_{i})^*A\\
+	\text{juga } & \- \\
+	(\lambda_{i} v_{i})^* &= (\lambda_{i})^* (v_{i})^* \\
+	&= \overline{\lambda_{i}}(v_{i})^* \\
+	\text{sehingga} & \- \\
+	-(v_{i})^*A &= \overline{\lambda_{i}}(v_{i})^*
+	\end{align*}
+	Selanjutnya misalkan ada matriks uniter dengan $U=\begin{pmatrix}
+	v_{1} & v_{2} & v_{3} & \cdots & v_{n}
+	\end{pmatrix}$ yang memenuhi $U^*=U^{-1}$ akan ditunjukkan $A=UDU^*$ atau $D=U^*AU$ sehingga
+	\begin{align*}
+	U^*AU &= U^*(AU) \\
+	&= U^* A\begin{pmatrix}
+	v_{1} & v_{2} & v_{3} & \cdots & v_{n}
+	\end{pmatrix} \\
+	&= U^* \begin{pmatrix}
+	Av_{1} & Av_{2} & Av_{3} & \cdots & Av_{n}
+	\end{pmatrix} \\
+	&= U^* \begin{pmatrix}
+	\lambda_{1}v_{1} & \lambda_{2}v_{2} & \lambda_{3}v_{3} & \cdots & \lambda_{n}v_{n}
+	\end{pmatrix} \\
+	&= U^*U \text{ diag}(\lambda_{1},\lambda_{2},\cdots,\lambda_{n}) \\
+	&= U^{-1}U \text{ diag}(\lambda_{1},\lambda_{2},\cdots,\lambda_{n}) \\
+	&= \text{ diag}(\lambda_{1},\lambda_{2},\cdots,\lambda_{n}) \\
+	&= D
+	\end{align*}
+	sehingga didapat $D$ merupakan matriks diagonal dengan entri semua nilai eigen dari matriks $A$ hal ini mengatakan bahwa matriks $A$ dapat didiagonalisasi secara uniter. Selanjutnya deiktahui bahwa
+	\begin{align*}
+	D^* &= (\text{diag}(\lambda_{1},\lambda_{2},\cdots,\lambda_{n}))^* \\
+	&= \overline{\text{ diag}(\lambda_{1},\lambda_{2},\cdots,\lambda_{n})} \\
+	&= \text{ diag}(\overline{\lambda_{1}},\overline{\lambda_{2}},\cdots,\overline{\lambda_{n}}) \\
+	\text{juga } & \- \\
+	D^* &= (U^*AU)^* \\
+	&= U^* A^* (U^*)^* \\
+	&= U^* (-A) U \\
+	& -(U^*AU) = -D \\
+	&= -\text{diag}(\lambda_{1},\lambda_{2},\cdots,\lambda_{n}) \\
+	&= \text{diag}(-\lambda_{1},-\lambda_{2},\cdots,-\lambda_{n})
+	\end{align*}
+	sehingga haruslah
+	$\text{ diag}(\overline{\lambda_{1}},\overline{\lambda_{2}},\cdots,\overline{\lambda_{n}}) = \text{diag}(-\lambda_{1},-\lambda_{2},\cdots,-\lambda_{n})$ dengan kata lain $\overline{\lambda_{i}}=-\lambda_{i}$ untuk setiap $1\le i \le n$ sehingga jika $\lambda_{i}=a+bi$ maka $\overline{a+bi}=-a-bi\Rightarrow a-bi=-a-bi \Rightarrow a=0$. Jadi, $\lambda_{i}=bi$ untuk $b\in \mathbb{R}$ dengan kata lain nilai-nilai eigen dari matriks $A$ bernilai imajiner murni, maka $D$ terdiri dari bilangan-bilangan imajiner murni. $(Q.E.D.)$
+
+\end{enumerate}
+	
+
+\newpage
+	
+	
+\begin{center}
+	\textbf{Tugas III Analisis Matriks}
+\end{center}
+
+
+\begin{tabular}{llll}
+	Nama        & : & Dimaz Wisnu Adipradana    &          \\
+	Mata Kuliah & : & Analisis Matriks (MA5021) & Bu Intan \\
+	NIIM        & : & 20119014                  &         
+\end{tabular}
+
+
+\begin{enumerate}
+	
+	\begin{bfseries}
+		\item[1.] Buktikan $  \left\{ \left. x^{\ast}Ax \right| x^{\ast}x = 1, x\in \mathbb{C}^{n} \right\} = \left\{ \displaystyle \frac{y^{\ast}Ay}{y^{\ast}y}, y\in \mathbb{C}^{n} \right\} $
+	\end{bfseries}
+	\- \\ \- \\
+	\textbf{Jawab :} $(\Rightarrow)$ Ambil sebarang $p\in \left\{ \left. x^{\ast}Ax \right| x^{\ast}x = 1, x\in \mathbb{C}^{n} \right\}$ sehingga $p= x_{1}^{\ast}Ax_{1}$ untuk suatu $x_{1}\in \mathbb{C}^{n}$ dan $x_{1}^{\ast}x=1$ padahal $p=x_{1}^{\ast}Ax_{1} =x_{1}^{\ast}Ax_{1}\times (1) (1)^{-1}  = \ds \frac{x_{1}^{\ast}Ax_{1}\times 1}{1} = \ds \frac{x_{1}^{\ast}Ax_{1}}{x_{1}^{\ast}x_{1}}$ sehingga dapat dipilih $y=x_{1}$ maka $\left\{ \left. x^{\ast}Ax \right| x^{\ast}x = 1, x\in \mathbb{C}^{n} \right\} \subseteq \left\{ \displaystyle \frac{y^{\ast}Ay}{y^{\ast}y}, y\in \mathbb{C}^{n} \right\}$\\
+	$(\Leftarrow)$ Ambil sebarang $p\in \left\{ \displaystyle \frac{y^{\ast}Ay}{y^{\ast}y}, y\in \mathbb{C}^{n} \right\}$ terlihat bahwa $y^{\ast}y = \begin{pmatrix}
+	\bar{a_1} & \bar{a_2} & \cdots & \bar{a_{n}} 
+	\end{pmatrix} \begin{pmatrix}
+	a_1\\ 
+	a_2\\ 
+	\vdots\\ 
+	a_n
+	\end{pmatrix} = \left( \displaystyle \sum_{k=1}^{n} |a_{k}|^{2}\right )=\left\| y\right\|^{2}$ sehingga tinjau untuk suatu $y\in \mathbb{C}^{n}$ yang memenuhi $p = \ds \frac{y^{\ast}Ay}{y^{\ast}y} = \frac{y^{\ast}Ay}{\left\| y\right\|^{2}} = \frac{y^{\ast}Ay}{\left\| y\right\|\left\| y\right\|} = \frac{y^{\ast}}{\left\| y\right\|}A\frac{y}{\left\| y\right\|}$ Selanjutnya diketahui bahwa $\ds \frac{y^{\ast}}{\left\| y\right\|} \frac{y}{\left\| y\right\|} = 1$ sehingga dapat dimisalkan $x=\ds \frac{y}{\left\| y\right\|}$ maka $x^{\ast} =\ds \frac{y^{\ast}}{\left\| y\right\|}$ yang memenuhi $x^{\ast}x=1$ sehingga $p$ juga anggota dari himpunan $\left\{ \left. x^{\ast}Ax \right| x^{\ast}x = 1, x\in \mathbb{C}^{n} \right\}$ artinya $ \left\{ \displaystyle \frac{y^{\ast}Ay}{y^{\ast}y}, y\in \mathbb{C}^{n} \right\} \subseteq \left\{ \left. x^{\ast}Ax \right| x^{\ast}x = 1, x\in \mathbb{C}^{n} \right\} $. Karena keduanya saling subset dengan kata lain $ \left\{ \left. x^{\ast}Ax \right| x^{\ast}x = 1 \right\} = \left\{ \displaystyle \frac{y^{\ast}Ay}{y^{\ast}y}, y\in \mathbb{C}^{n} \right\}$ $(Q.E.D.)$\\
+	
+	\begin{bfseries}
+		\item[2.] Diberikan Matriks $A_{n\times n}$, Buktikan bahwa polinom karakteristik $A$ adalah $\displaystyle C_{A}(t) = t^{n}+\sum_{i=1}^{n}\, (-1)^{i}S_{i}t^{n-i}$ dengan $S_{i}$ adalah jumlah determinan semua submatriks utama dari $A$ yang berukuran $i\times i$, $\forall i\in \{ 1,2,\ldots ,n\}$
+	\end{bfseries}
+	\- \\ \- \\
+	\textbf{Jawab :} Misalkan polinomial karakteristik dari $A$ adalah $t^{n}+a_{1}t^{n-1}+a_{2}t^{n-2}+\cdots +a_{n-1}t+a_{n}=(t-t_{1})(t-t_{2})\cdots (t-t_{n})$ dengan $t_{i}$ adalah nilai eigen dari $A$ sehingga dengan menggunakan Teorema Vieta akan di tinjau masing-masing nilai dari $a_{i}$. Untuk $i=n-1$ jelas bahwa $t_{1}+t_{2}+\cdots +t_{n} = -a_{1}$ Padahal jumlah determinan submatriks utama ukuran $1\times 1$ merupakan trace dari matriks $A$. Hal ini mengakibatkan $S_{1}$ merupakan jumlah semua nilai eigen atau $t_{1}+t_{2}+\cdots +t_{n}$ maka $a_{1} = -S_{1}$. Dengan cara yang sama menggunakan induksi dan Teorema Vieta diperoleh bahwa $a_{k} = \ds \sum_{1\le p_{1}< p_{2}<\cdots <p_{k}\le k}\, (-1)^{n} \left( \prod_{i=1}^{k}\, a_{p_{i}}\right)  $ atau $a_{k}=(-1)^{k}S_{k}$ untuk $k=1,2,\ldots ,n$ subtitusi ke dalam polinomial karakteristik $A$ diperoleh $C_{A}(t) = t^{n}+a_{1}t^{n-1}+a_{2}t^{n-2}+\cdots +a_{n-1}t+a_{n} = t^{n}-S_{1}t^{n-1}+S_{2}t^{n-2}+\cdots +(-1)^{n-1}S_{n-1}t+(-1)^{n}S_{n} = t^{n}+\sum_{i=1}^{n}\, (-1)^{i}S_{i}t^{n-i}$ $(Q.E.D.)$
+	
+	
+\end{enumerate}
+	
+		
+\newpage
+
+	\begin{enumerate}
+		\item[(norma 1)] $\left\| \cdot \right\|_{1}$ dengan $\left\| A \right\|_{1}=\ds \max_{j}\, \left( \sum_{i=1}^{n} \left| a_{ij}\right| \right)$ (jumlah modulus kolom terbesar)\\
+		$\left\| x \right\|_{1}=\ds \sum_{i=1}^{n}\, \left| x_{i}\right|$
+		\item[(norma 2)] $\left\| \cdot \right\|_{2}$ dengan $\left\| A \right\|_{2}=\ds \max_{i}\, \sigma_{i}\left( A\right)$ (nilai singular terbesar) \\
+		$\left\| x \right\|_{2}=\ds \left( \sum_{i=1}^{n}\, \left| x_{i}\right|^{2} \right)^{\frac{1}{2}}$
+		\item[(norma $\infty$)] $\left\| \cdot \right\|_{\infty}$ dengan $\left\| A \right\|_{\infty}=\ds \max_{i}\, \left( \sum_{j=1}^{n} | a_{ij}| \right)$ (jumlah modulus baris terbesar)\\
+		$\left\| x \right\|_{\infty}=\ds \max_{i} \left| x_{i}\right|$
+		\item[(norma Frobenius)] $\left\| \cdot \right\|_{F}$ dengan $\left\| A \right\|_{F}=\ds \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \left| a_{ij}\right|^{2}}$ (norma Frobenius)\\
+		$\left\| x \right\|_{p}=\ds \left( \sum_{i=1}^{n}\, \left| x_{i}\right|^{p} \right)^{\frac{1}{p}}$
+	\end{enumerate}
+	
+
+\newpage
+
+
+\begin{center}
+	\textbf{Tugas IV Analisis Matriks}
+\end{center}
+
+
+\begin{tabular}{llll}
+	Nama        & : & Dimaz Wisnu Adipradana    &          \\
+	Mata Kuliah & : & Analisis Matriks (MA5021) & Bu Intan \\
+	NIM        & : & 20119014                  &         
+\end{tabular}
+
+
+\begin{enumerate}
+	
+	\begin{bfseries}
+		\item[1.] Diberikan ruang vektor $\ell = \left\{ (a_{1},a_{2},\ldots) \left| a_{i} \in \mathbb{C} , (\text{hampir semuanya } 0) \right\} \right.$(dengan operasi komponen demi komponen). Maka $\left\| \cdot \right\|_{1}$ dan $\left\| \cdot \right\|_{\infty}$ keduanya norma di $\ell$. Tunjukkan bahwa kedua norma tersebut tidak ekivalen.
+	\end{bfseries}
+	\- \\
+	\textbf{Jawab :} Akan ditunjukkan $\left\|\cdot\right\|_{1}$ dan $\left\|\cdot\right\|_{\infty}$ tidak ekivalen dengan kata lain untuk setiap $k,K\in \mathbb{R}^{+}$ sehingga $\exists x\in \ell$  yang memenuhi $k\left\| x\right\|_{\infty}>\left\| x\right\|_{1}$ atau $K\left\| x\right\|_{\infty}< \left\| x\right\|_{1}$.\\
+	Akan ditunjukkan untuk bagian $\left\| \cdot\right\|_{\infty}$ dan $\left\| \cdot\right\|_{1}$.\\
+	ambil sebarang $k,K\in \mathbb{R}^{+}$ dengan $k\leq K$ selanjutnya pilih 
+	\begin{align*}
+	x &= \left( x_{1},x_{2},x_{3},\ldots,x_{N},0,0,\ldots\right)^{T} \\
+	&= \left( 1,1,1,\ldots,1,0,0,\ldots\right)^{T}
+	\end{align*}
+	Dengan kata lain $x_{i}= \begin{cases}
+	1 &,  i\leq N\\
+	0 &,  i>N
+	\end{cases}$ dengan $N\in \mathbb{N}$. Kemudian dipilih $N>K$ sehingga
+	\begin{align*}
+	\left\| x\right\|_{\infty} &=\ds \max_{i} \left| x_{i}\right| \\
+	&= 1
+	\end{align*} juga
+	\begin{align*}
+	\left\| x\right\|_{1} &=\ds \sum_{i=1}^{n} \left| x_{i}\right| \\
+	&= \underbrace{1+1+1+\cdots+1}_{\text{ sebanyak }N}+0+0+\cdots \\
+	&= N
+	\end{align*}
+	Akibatnya $K\left\| x\right\|_{\infty} = K\times 1 = K < N =\left\| x\right\|_{1}$, maka $K\left\| x\right\|_{\infty} < \left\| x\right\|_{1}$.\\
+	Hal ini menunjukkan syarat cukup bahwa $\left\| \cdot\right\|_{\infty}$ dan $\left\| \cdot\right\|_{1}$ tidak ekivalen.	$(Q.E.D.)$\\
+	
+	\begin{bfseries}
+		\item[2.] Tunjukkan jika $\left\| A\right\|_{\infty} = \ds \max_{i}\, \left( \sum_{j=1}^{n} \left| a_{ij}\right| \right)$ (jumlah modulus baris terbesar) maka $\ds \left\| A\right\|_{\infty} = \max_{\left\| x\right\|_{\infty}=1} \left\| Ax \right\|_{\infty} $ 
+	\end{bfseries}
+	\- \\
+	\textbf{Jawab :} Pilih $x$ dengan $\| x\|_{\infty}=1$ dengan kata lain $\ds \max_{i} \left| x_{i}\right|=1$. Selanjutnya tinjau
+	\begin{align*}
+	\left\| Ax\right\|_{\infty} &= \ds \max_{i} \left| \sum_{j=1}^{n} a_{ij}x_{j}\right| \\
+	&\leq \ds \max_{i} \sum_{j=1}^{n} \left| a_{ij}x_{j}\right| \\
+	&= \ds \max_{i} \sum_{j=1}^{n} \left| a_{ij}\right| \left| x_{j}\right| \\
+	&\leq \left( \ds \max_{i} \sum_{j=1}^{n} \left|a_{ij}\right|\right) \left(\max_{j} \left| x_{j}\right|\right) \\
+	&= \ds \left( \max_{i} \sum_{j=1}^{n} \left| a_{ij}\right|\right) \left\| x\right\|_{\infty} \\
+	&= \ds \max_{i} \sum_{j=1}^{n} \left| a_{ij}\right|
+	\end{align*}
+	sehingga berlaku $\ds \max_{\left\| x\right\|_{\infty}=1} \left\| Ax\right\|_{\infty} \leq \max_{i} \sum_{j=1}^{n} \left| a_{ij}\right| = \left\| A\right\|_{\infty}$.\\
+	Selanjutnya perhatikan bahwa baris ke $k$ dari $A$ yang yang taknol, lalu didefisinikan vektor $z=\left[ z_{i}\right]\in \mathbb{C}^{n}$ dimana $z_{i} = \begin{cases}
+		\ds \frac{\overline{a_{ki}}}{\left| a_{ki}\right|} &, a_{ki}\ne 0 \\
+		1 &, a_{ki}=0
+	\end{cases}$ maka $\left\| z_{i}\right\|_{\infty}=1$, $a_{k_{2}}z_{j}=\left| a_{kj}\right|$, $\forall j=1,2,\ldots, n$ dan $\ds \max_{\left\| x\right\|_{\infty}=1} \left\| Ax\right\|_{\infty} \geq \left\| Az\right\|_{\infty} = \max_{i} \left| \sum_{j=1}^{n} a_{ij}z_{j} \right| \geq \left| \sum_{j=1}^{n} a_{kj}z_{j}\right| = \sum_{j=1}^{n} \left| a_{kj} \right|$ maka $\ds \max_{\left\| x\right\|_{\infty}=1} \left\| Ax\right\|_{\infty} \geq \max_{k} \sum_{j=1}^{n} \left|a_{kj}\right| = \left\| A\right\|_{\infty}$.\\
+	Jadi, karena berlaku $\ds \max_{\left\| x\right\|_{\infty}=1} \left\| Ax\right\|_{\infty} \leq \left\| A\right\|_{\infty}$ dan $\ds \max_{\left\| x\right\|_{\infty}=1} \left\| Ax\right\|_{\infty} \geq \left\| A\right\|_{\infty}$ maka haruslah $\ds \max_{\left\| x\right\|_{\infty}=1} \left\| Ax\right\|_{\infty} = \left\| A\right\|_{\infty}$     $(Q.E.D.)$\\
+	
+	\begin{bfseries}
+		\item[3.] Tunjukkan jika $\left\| A\right\|_{2} = \ds \max_{i}\, \sigma_{i}\left( A\right)$ (nilai singular terbesar) maka $\ds \left\| A\right\|_{2} = \max_{\left\| x\right\|_{2}=1} \left\| Ax \right\|_{2} $ 
+	\end{bfseries}
+	\- \\
+	\textbf{Jawab :} Misalkan $\left\| A\right\|_{2} = \sigma_{1}(A)$ dimana $\sigma$ merupakan nilai singular terbesar dari $A$.\\
+	Misal juga $A=V\Sigma W^{\ast}$ dengan $V$ dan $W$ matriks uniter, $\Sigma = \text{diag}(\sigma_{1},\sigma_{2},\ldots , \sigma_{n})$ dan $\sigma_{i}\geq \sigma_{j} \geq 0$ untuk setiap $i>j\in\left\{ 1,2,\ldots, n\right\}$.\\
+	Tinjau
+	\begin{align*}
+	\ds \max_{\left\| x\right\|_{2}=1} \left\| Ax\right\|_{2} &= \max_{\left\| x\right\|_{2}=1} \left\| V\Sigma W^{\ast}\right\|_{2} \\
+	&= \max_{\left\| x\right\|_{2}=1} \left\| \Sigma W^{\ast}U \right\|_{2} \\
+	&= \max_{\left\| Wy\right\|_{2}=1} \left\| \Sigma y\right\|_{2} \text{ dimana } W^{\ast}x=y \Rightarrow x=Wy \\
+	&= \max_{\left\| y\right\|_{2}=1} \left\| \Sigma y\right\|_{2} \\
+	&\leq \max_{\left\| y\right\|_{2}=1} \left\| \sigma_{1} y\right\|_{2} \\
+	&=\sigma_{1} \max_{\left\| y\right\|_{2}=1} \left\| y\right\|_{2} \\
+	&=\sigma_{1} \max_{\left\| y\right\|_{2}=1} 1 \\
+	&=\sigma_{1}
+	\end{align*}
+	Sehingga $\left\| \Sigma y\right\|_{2}=\sigma_{1}$ untuk $y=e_{1}$.\\
+	Jadi, $\ds \max_{\left\| y\right\|_{2}=1} \left\| Ax\right\|_{2}= \sigma_{1} (A) $. $(Q.E.D.)$\\
+	
+	\begin{bfseries}
+		\item[4.] Tunjukkan bahwa norma berikut mendefinisikan norma matriks.
+		\begin{enumerate}
+			\item[(a)] $v_{1}$ dengan $v_{1}(A)=\ds \max_{j}\, \left( \sum_{i=1}^{n} \left| a_{ij}\right| \right)$ (jumlah modulus kolom terbesar)
+			\item[(b)] $v_{2}$ dengan $v_{2}(A)=\ds \max_{i}\, \sigma_{i}\left( A\right)$ (nilai singular terbesar)
+			\item[(c)] $v_{\infty}$ dengan $v_{\infty}(A)=\ds \max_{i}\, \left( \sum_{j=1}^{n} \left| a_{ij}\right| \right)$ (jumlah modulus baris terbesar)
+			\item[(d)] $v_{F}$ dengan $v_{F}(A)=\ds \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \left| a_{ij}\right|^{2}}$ (norma Frobenius)
+		\end{enumerate}
+	\end{bfseries}
+	\- \\
+	\textbf{Jawab :} Pemetaan $v:\mathbb{C}^{n\times n}\rightarrow \mathbb{R}$ disebut norma matriks jika memenuhi 
+	\begin{enumerate}
+		\item[(i)] $v(\alpha A) = \left| v(A)\right|$
+		\item[(ii)] $v(A+B)\leq v(A)+v(B)$
+		\item[(iii)] $v(A)\geq 0$ dan $v(A)=0 \Leftrightarrow A=0$
+		\item[(iv)] $v(AB)\leq v(A)v(B)$
+	\end{enumerate}
+	$\forall A,B\in \mathbb{C}^{n\times n}, \alpha\in \mathbb{C}$.
+	\begin{enumerate}
+		\item[(a)] \textit{Bukti.} Perhatikan bahwa untuk $\alpha\in \mathbb{C}$ dan $A,B\in \mathbb{C}^{n\times n}$
+		\begin{enumerate}
+			\item[i.] 
+			\begin{align*}
+			v_{1}(\alpha A) &=\ds \max_{j} \sum_{i=1}^{n} \left| \alpha a_{ij}\right| \\
+			&=\ds \max_{j} \sum_{i=1}^{n} \left| \alpha \right| \left| a_{ij}\right| \\
+			&=\ds \left| \alpha \right| \max_{j} \sum_{i=1}^{n} \left| a_{ij}\right| \\
+			&= \left| \alpha \right| v_{1}(A)
+			\end{align*}
+			\item[ii.] 
+			\begin{align*}
+			v_{1}(A+B) &=\ds \max_{j} \sum_{i=1}^{n} \left| a_{ij}+b_{ij}\right| \\
+			&\leq\ds \max_{j} \sum_{i=1}^{n} (\left| a_{ij}\right|+\left| b_{ij}\right|) \\
+			&=\ds \max_{j} \sum_{i=1}^{n} \left| a_{ij}\right| + \max_{j} \sum_{i=1}^{n} \left| b_{ij}\right| \\
+			&= v_{1}(A)+v_{1}(B)
+			\end{align*}
+			\item[iii.] Karena $\left| a_{ij}\right| \geq 0$, maka $v(A)=\ds \max_{j} \sum_{i=1}^{n} \left| a_{ij}\right|\geq 0$, dan $\ds v(A)=0 \Leftrightarrow \sum_{i=1}^{n} \left| a_{ij}\right|=0 \Leftrightarrow \left| a_{ij}\right| \Leftrightarrow a_{ij}=0, \forall i,j\in\left\{ 1,2,\ldots,n\right\} \Leftrightarrow A=0$.
+			\item[iv.] 
+			\begin{align*}
+			v_{1}(AB) &= \ds \max_{j} \sum_{i=1}^{n} \left| \sum_{k=1}^{n} (a_{ik}b_{kj})\right| \\
+			&\leq \ds \max_{j} \sum_{i=1}^{n} \sum_{k=1}^{n} \left| a_{ik}b_{kj}\right| \\
+			&= \ds \max_{j} \sum_{i=1}^{n} \sum_{k=1}^{n} \left| a_{ik} \right| \left|b_{kj}\right| \\
+			&= \ds \max_{j} \sum_{k=1}^{n} \left( \left|b_{kj}\right| \sum_{i=1}^{n} \left| a_{ik} \right| \right) \\
+			&= \ds \left( \max_{j} \sum_{k=1}^{n} \left| b_{kj}\right|\right) \left( \max_{k} \sum_{i=1}^{n} \left| a_{ik} \right| \right) \\
+			&= v_{1}(A)v_{1}(B)
+			\end{align*}
+		\end{enumerate}
+		Ke empat hal ini menunjukkan bahwa $v_{1}$ merupakan norma matriks. $(Q.E.D.)$
+		\item[(b)] \textit{Bukti.} Sebelumnya jika diketahui $\lambda$ dan $\mu$ adalah nilai eigen dari suatu matriks $A$ dan $B$ berturut-turut maka memenuhi $(A+B)x = Ax+Bx=\lambda x+ \mu x=(\lambda +\mu)x$ dan $(AB)x=A(Bx) = A(\mu x) = \mu (Ax)=\mu (\lambda x) = \lambda \mu x$. Dengan demikian nilai eigen dari jumlah matriks adalah jumlah nilai eigen kedua matriksnya, dan nilai eigen dari hasil kali matriks adalah hasil kali nilai eigen kedua matriksnya.\\
+		Perhatikan untuk $\alpha\in \mathbb{C}, A,B \in \mathbb{C}^{n\times n}, \lambda_{i}(A)\in \mathbb{C}$ nilai eigen dari $A$, dan $\sigma_{i}(A)\in \mathbb{R}^{+}$ nilai singulir dari $A$. 
+		\begin{enumerate}
+			\item[i.] Diketahui dari definisi nilai singulir bahwa $\sigma_{i}(A)=\sqrt{\lambda_{i}(AA^{\ast})}$. Dapat dilihat bahwa $\lambda_{i}(\alpha A(\alpha A)^{\ast})=|\alpha|^{2}\lambda_{i}(AA^{\ast})$. Akibatnya,
+			\begin{align*}
+			\sigma_{i}(\alpha A) &= \sqrt{\lambda_{i}(\alpha A (\alpha A)^{\ast})} \\
+			&= \sqrt{\left| \alpha\right|^{2} \lambda_{i}(AA^{\ast})} \\
+			&= \left| \alpha\right| \sqrt{\lambda_{i}(AA^{\ast})} \\
+			&= \left| \alpha\right| \sigma_{i}(A)
+			\end{align*}
+			Sehingga $v_{2}(\alpha A)=\ds \max_{i} \sigma_{i}(\alpha A) = \max_{i} \left|\alpha\right| \sigma_{i}(A) = \left| \alpha\right| \max_{i} \sigma_{i}(A) = \left| \alpha\right|v_{2}(A)$.
+			\item[ii.] Diketahui $\sigma_{i}(A)=\sqrt{\lambda_{i}(AA^{\ast})}$ dan $\sigma_{i}(B)=\sqrt{\lambda_{i}(BB^{\ast})}$. Terlihat bahwa
+			\begin{align*}
+			\sigma_{i}(A+B) &= \sqrt{\lambda_{i}((A+B)(A+B)^{\ast})} \\
+			&= \sqrt{\lambda_{i}(AA^{\ast}+AB^{\ast}+BA^{\ast}+BB^{\ast}}) \\
+			&\leq \sqrt{\lambda_{i}(AA^{\ast})+\lambda_{i}(BB^{\ast})} \\
+			&= \sqrt{\sigma_{i}^{2}(A)+\sigma_{i}^{2}(B)} \\
+			&\leq \sqrt{\sigma_{i}^{2}(A)}+\sqrt{\sigma_{i}^{2}(B)} \\
+			&= \sigma_{i}(A)+\sigma_{i}(B)
+			\end{align*}
+			Sehingga
+			\begin{align*}
+			v_{2}(A+B) &= \ds \max_{i} \sigma_{i}(A+B) \\
+			&= \ds \max_{i} (\sigma_{i}(A)+\sigma_{i}(B)) \\
+			&= \ds \max_{i} \sigma_{i}(A)+ \max_{i} \sigma_{i}(B) \\
+			&= v_{2}(A)+v_{2}(B)
+			\end{align*}
+			\item[iii.] Karena nilai singulir selalu bilangan real tak negatif, jelas $v_{2}(A)\geq 0$. untuk $A=0$ jelas $\lambda_{i}=\sigma_{i}=0$ akibatnya $v_{2}(A)=0$ dan untuk $v_{2}=0$ karena $v_{2}\geq 0$ haruslah $\sigma_{i}(A)=0$ hal ini dipenuhi hanya untuk matriks $A=0$. 
+			\item[iv.] Diketahui $\sigma_{i}(A)=\sqrt{\lambda_{i}(AA^{\ast})}$ dan $\sigma_{i}(B)=\sqrt{\lambda_{i}(BB^{\ast})}$. Dapat dilihat bahwa
+			\begin{align*}
+			\sigma_{i}(AB) &=\sqrt{\lambda_{i}(AB(AB)^{\ast})} \\
+			&=\sqrt{\lambda_{i}(ABB^{\ast}A^{\ast})} \\
+			&=\sqrt{\lambda_{i}(A) \lambda_{i}(BB^{\ast}) \lambda_{i}(A^{\ast})} \\
+			&=\sqrt{\lambda_{i}(A) \lambda_{i}(A^{\ast}) \lambda_{i}(BB^{\ast})}   \\
+			&=\sqrt{\lambda_{i}(AA^{\ast}) \lambda_{i}(BB^{\ast})}   \\
+			&=\sqrt{\lambda_{i}(AA^{\ast})} \sqrt{\lambda_{i}(BB^{\ast})} \\
+			&= \sigma_{i}(A)\sigma_{i}(B) 
+			\end{align*}
+			Sehingga $v_{2}(AB)=\ds \max_{i}\sigma_{i}(AB)=\max_{i}(\sigma_{i}(A)\sigma_{i}(B))\leq \max_{i}\sigma_{i}(A)\max_{i}\sigma_{i}(B)=v_{2}(A)v_{2}(B)$
+		\end{enumerate}
+		Ke empat hal ini menunjukkan bahwa $v_{2}$ merupakan norma matriks. $(Q.E.D.)$
+		\item[(c)] \textit{Bukti.} Perhatikan bahwa untuk $\alpha\in \mathbb{C}$ dan $A,B\in \mathbb{C}^{n\times n}$ 
+		\begin{enumerate}
+			\item[i.] 
+			\begin{align*}
+			v_{\infty}(\alpha A) &=\ds \max_{i} \sum_{j=1}^{n} \left| \alpha a_{ij}\right| \\
+			&=\ds \max_{i} \sum_{j=1}^{n} \left| \alpha \right| \left| a_{ij}\right| \\
+			&=\ds \left| \alpha \right| \max_{i} \sum_{j=1}^{n} \left| a_{ij}\right| \\
+			&= \left| \alpha \right| v_{\infty}(A)
+			\end{align*}
+			\item[ii.] 
+			\begin{align*}
+			v_{\infty}(A+B) &=\ds \max_{i} \sum_{j=1}^{n} \left| a_{ij}+b_{ij}\right| \\
+			&\leq \ds \max_{i} \sum_{j=1}^{n} (\left| a_{ij}\right|+\left| b_{ij}\right|) \\
+			&=\ds \max_{i} \sum_{j=1}^{n} \left| a_{ij}\right| + \max_{i} \sum_{j=1}^{n} \left| b_{ij}\right| \\
+			&= v_{\infty}(A)+v_{\infty}(B)
+			\end{align*}
+			\item[iii.] Karena $\left| a_{ij}\right| \geq 0$, maka $v(A)=\ds \max_{i} \sum_{j=1}^{n} \left| a_{ij}\right|\geq 0$, dan $\ds v(A)=0 \Leftrightarrow \sum_{j=1}^{n} \left| a_{ij}\right|=0 \Leftrightarrow \left| a_{ij}\right| \Leftrightarrow a_{ij}=0, \forall i,j\in\left\{ 1,2,\ldots,n\right\} \Leftrightarrow A=0$.
+			\item[iv.] 
+			\begin{align*}
+			v_{\infty}(AB) &= \ds \max_{i} \sum_{j=1}^{n} \left| \sum_{k=1}^{n} (a_{ik}b_{kj})\right| \\
+			&\leq \ds \max_{i} \sum_{j=1}^{n} \sum_{k=1}^{n} \left| a_{ik}b_{kj}\right| \\
+			&= \ds \max_{i} \sum_{j=1}^{n} \sum_{k=1}^{n} \left| a_{ik} \right| \left|b_{kj}\right| \\
+			&= \ds \max_{i} \sum_{k=1}^{n} \left( \left|a_{ik}\right| \sum_{j=1}^{n} \left| b_{kj} \right| \right) \\
+			&= \ds \left( \max_{i} \sum_{k=1}^{n} \left| a_{ik}\right|\right) \left( \max_{k} \sum_{j=1}^{n} \left| b_{kj} \right| \right) \\
+			&= v_{\infty}(A)v_{\infty}(B)
+			\end{align*}
+		\end{enumerate}
+		Ke empat hal ini menunjukkan bahwa $v_{\infty}$ merupakan norma matriks. $(Q.E.D.)$
+		\item[(d)] \textit{Bukti.} Perhatikan bahwa untuk $\alpha\in \mathbb{C}$ dan $A,B\in \mathbb{C}^{n\times n}$ 
+		\begin{enumerate}
+			\item[i.] 
+			\begin{align*}
+			F(\alpha A) &=\ds \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \left| \alpha a_{ij}\right|^{2}} \\
+			&=\ds \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \left|\alpha\right|^{2} \left| a_{ij}\right|^{2}} \\
+			&=\ds \left|\alpha \right| \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \left| a_{ij}\right|^{2}} \\
+			&= \alpha F(A)
+			\end{align*}
+			\item[ii.] 
+			\begin{align*}
+			F(A+B) &=\ds \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \left| a_{ij}+b_{ij}\right|^{2}} \\
+			&\leq \ds \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \left| a_{ij} \right| +\left|b_{ij}\right|^{2}} \\
+			&=\ds \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \left| a_{ij}\right|^{2}+ \sum_{i=1}^{n} \sum_{j=1}^{n} \left| b_{ij}\right|^{2}} \\
+			&\leq \ds \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \left| a_{ij}\right|^{2}}+\sqrt{ \sum_{i=1}^{n} \sum_{j=1}^{n} \left| b_{ij}\right|^{2}} \\
+			&=F(A)+F(B)
+			\end{align*}
+			\item[iii.] karena $|a_{ij}|\geq 0$ maka jelas akar dari jumlahannya pun tak negatif maka $F(A)\geq 0$. Kemudian untuk $A=0$ jelas $a_{ij}=0$ untuk setiap $1\leq i \leq j \leq n$ sehingga $F(A)=0$, begitu juga untuk $F(A)=0$ maka jumlahan dari bilangan tak negatif sama dengan nol, maka haruslah nilai masing-masingnya bernilai nol dengan kata lain $\left|a_{ij}\right|=0 \Leftrightarrow a_{ij}=0$ untuk setiap $1\leq i \leq j \leq n$ hal ini menyebabkan $A=0$. 
+			\item[iv.] 
+			\begin{align*}
+			F(AB) &= \ds \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \left| \sum_{k=1}^{n} a_{ik}b_{kj}\right|^{2}} \\
+			&\leq \ds \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \sum_{k=1}^{n} \left| a_{ik}b_{kj}\right|^{2}} \\
+			&= \ds \sqrt{\sum_{i=1}^{n} \sum_{j=1}^{n} \sum_{k=1}^{n} \left| a_{ik} \right|^{2} \left|b_{kj}\right|^{2}} \\
+			&= \ds \sqrt{\sum_{k=1}^{n} \left(\sum_{i=1}^{n} \left| a_{ik} \right|^{2} \sum_{j=1}^{n}  \left|b_{kj}\right|^{2}\right)} \\
+			&= \ds \sqrt{\sum_{k=1}^{n} \sum_{i=1}^{n} \left| a_{ik} \right|^{2} \sum_{j=1}^{n}  \left|b_{kj}\right|^{2}} \\
+			&= \ds \sqrt{\sum_{k=1}^{n} \sum_{i=1}^{n} \left| a_{ik} \right|^{2}} \sqrt{\sum_{j=1}^{n}  \left|b_{kj}\right|^{2}} \\
+			&= F(A) F(B)
+			\end{align*}
+		\end{enumerate}
+		Ke empat hal ini menunjukkan bahwa $v_{F}$ merupakan norma matriks. $(Q.E.D.)$
+	\end{enumerate}
+	
+	
+	
+	
+\end{enumerate}
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

@@ -1,0 +1,185 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{geometry}\geometry{tmargin=2cm,lmargin=2cm,bmargin=2cm,rmargin=2cm}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\DeclareMathOperator{\lcm}{$\text{lcm}$}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bs}{\boldsymbol}
+\usepackage{multicol}
+
+
+\author{Uzumaki Nagato Tenshou}
+\title{Catatan Persamaan Diferensial Parsial (MA5271)}
+
+\usepackage{fancyhdr}
+\rhead{Uzumaki Nagato Tenshou}
+\lhead{}
+
+\usepackage{amsthm}
+\makeatletter
+\def\th@plain{%
+	\thm@notefont{}% same as heading font
+	\itshape % body font
+}
+\def\th@definition{%
+	\thm@notefont{}% same as heading font
+	\normalfont % body font
+}
+\makeatother
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Teorema}[section]
+\newtheorem{cor}{Akibat}[theorem]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{sifat}[theorem]{Sifat}
+
+\theoremstyle{definition}
+\newtheorem{defn}[theorem]{Definition}
+\newtheorem{conj}[theorem]{Conjecture}
+\newtheorem{exmp}[theorem]{Example}
+\newtheorem{prob}[theorem]{Problem}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{note}{Note}
+
+
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\LL}{\mathfrak{L}}
+
+
+\begin{document}
+\maketitle
+\pagestyle{fancy}
+
+Persamaan diferensial parsial adalah persamaan diferensial bagi fungsi peubah banyak $u(x,y,\cdots)$. Orde dari PDP adalah turunan tertinggi yang muncul pada PDP tersebut. \\
+\\
+Berbagai persamaan diferensial yang penting
+\begin{enumerate}
+	\item[1.] $u_{x}+u_{t}=0$ (Persamaan Transport).
+	\item[2.] $u_{x}+u u_{t}=0$ (Persamaan Burgers(Shockwave), merupakan bentuk khusus persamaan Buckley-Leverett).
+	\item[3.] $u_{t} = k u_{xx}$ (Persamaan panas, Persamaan difusi).
+	\item[4.] $u_{tt}=c^{2}u_{xx}$ (Persamaan Gelombang).
+	\item[5.] $u_{xx}+u_{yy}=0=\Delta u = 0$ (Persamaan Laplace).
+\end{enumerate}
+
+
+
+\begin{flushleft}
+	\textbf{Operator Linear}
+\end{flushleft}
+ Suatu operator $\LL$ dikatakan \textit{linier} jika
+ $$\LL(u+v)=\LL u+\LL v, \text{ dan } \LL(cu) = c\LL u$$
+ untuk setiap fungsi $u,v$ dan untuk setiap $c\in \R$.\\
+ Suatu PDP berbentuk $$\LL u=0$$ dikatakan linier jika $\LL$ operator linier.
+
+\begin{enumerate}
+	\item[1.] Akan dibuktikan persamaan difusi merupakan PDP linier. \- \\
+	\textbf{Penyelesaian.} Diketahui persamaan umum difusi $u_{t}=ku_{xx}$ atau ditulis $$ \partial_{t} u - k \partial_{xx}u = (\partial_{t}-k \partial_{xx})u = 0.$$
+	Sehingga dapat dituliskan dalam bentuk $\LL u=0$, dengan operator $\ds \LL = \partial_{t}-k \partial_{xx}$.\\
+	Ambil sebarang fungsi $u,v$ dan $c\in \R$ kemudian tinjau
+	\begin{align*}
+	\LL(u+cv) &=  (\partial_{t}-k \partial_{xx})(u+cv) \\
+	&=  (\partial_{t}-k \partial_{xx})u +(\partial_{t}-k \partial_{xx})(cv) \\
+	&= \partial_{t}u-k \partial_{xx}u + \partial_{t}(cv)-k \partial_{xx}(cv) \\
+	&= \partial_{t}u-k \partial_{xx}u + c \partial_{t}v-k  c \partial_{xx}v \\
+	&= \partial_{t}u-k \partial_{xx}u + c(\partial_{t} - k \partial_{xx}v) \\
+	&= (\partial_{t}- k \partial_{xx}) u + c(\partial_{t} - k  \partial_{xx}) v \\
+	&= \LL u + c\LL v
+	\end{align*}
+	Hal ini berakibat bahwa persamaan difusi merupakan PDP linier.
+	\item[2.] Akan dibuktikan persamaan transport merupakan PDP linier. \- \\
+	\textbf{Penyelesaian.} Diketahui persamaan transport $u_{x}=u_{t}$ atau ditulis $$ \partial_{x} u - \partial_{t}u = (\partial_{x}-\partial_{t})u = 0.$$
+	Sehingga dapat dituliskan dalam bentuk $\LL u=0$, dengan operator $\ds \LL = \partial_{x}-\partial_{t}$.\\
+	Ambil sebarang fungsi $u,v$ dan $c\in \R$ kemudian tinjau 
+	\begin{align*}
+	\LL(u+cv) &=  (\partial_{x}-\partial_{t})(u+cv) \\
+	&=  (\partial_{x}-\partial_{t})u +(\partial_{x}-\partial_{t})(cv) \\
+	&= \partial_{x}u-\partial_{t}u + \partial_{x}(cv)-\partial_{t}(cv) \\
+	&= \partial_{x}u-\partial_{t}u + c \partial_{x}v - c \partial_{t}v \\
+	&= (\partial_{x}- \partial_{t}) u + c(\partial_{x} - \partial_{t}) v \\
+	&= \LL u + c\LL v
+	\end{align*}
+	Hal ini berakibat bahwa persamaan transport merupakan PDP linier.
+	\item[3.] Akan dibuktikan persamaan gelombang merupakan PDP linier. \- \\
+	\textbf{Penyelesaian.} Diketahui persamaan umum gelombang $u_{tt} - c^{2} u_{xx} = 0$ atau ditulis $$ \partial_{tt} u - c^{2} \partial_{xx}u = (\partial_{tt}-c^{2} \partial_{xx})u = 0.$$
+	Sehingga dapat dituliskan dalam bentuk $\LL u=0$, dengan operator $\ds \LL = \partial_{tt}-c^{2} \partial_{xx}$.\\
+	Ambil sebarang fungsi $u,v$ dan $k\in \R$ kemudian tinjau
+	\begin{align*}
+	\LL(u+cv) &=  (\partial_{tt}-c^{2} \partial_{xx})(u+kv) \\
+	&=  (\partial_{tt}-c^{2} \partial_{xx})u +(\partial_{tt}-c^{2} \partial_{xx})(kv) \\
+	&= \partial_{tt}u-c^{2} \partial_{xx}u + \partial_{tt}(kv)-c^{2} \partial_{xx}(kv) \\
+	&= \partial_{tt}u-c^{2} \partial_{xx}u + k \partial_{tt}v-c^{2} k \partial_{xx}v \\
+	&= \partial_{tt}u-c^{2} \partial_{xx}u + k(\partial_{tt}v - c^{2} \partial_{xx}v) \\
+	&= (\partial_{tt}- c^{2} \partial_{xx}) u + k(\partial_{tt} - c^{2}  \partial_{xx}) v \\
+	&= \LL u + k\LL v
+	\end{align*}
+	Hal ini berakibat bahwa persamaan gelombang merupakan PDP linier. 
+	\item[4.] Akan dibuktikan persamaan gelombang merupakan PDP linier. \- \\
+	\textbf{Penyelesaian.} Diketahui persamaan umum gelombang $u_{tt} - c^{2} u_{xx} = 0$ atau ditulis $$ \partial_{tt} u - c^{2} \partial_{xx}u = (\partial_{tt}-c^{2} \partial_{xx})u = 0.$$
+	Sehingga dapat dituliskan dalam bentuk $\LL u=0$, dengan operator $\ds \LL = \partial_{tt}-c^{2} \partial_{xx}$.\\
+	Ambil sebarang fungsi $u,v$ dan $k\in \R$ kemudian tinjau
+	\begin{align*}
+	\LL(u+cv) &=  (\partial_{tt}-c^{2} \partial_{xx})(u+kv) \\
+	&=  (\partial_{tt}-c^{2} \partial_{xx})u +(\partial_{tt}-c^{2} \partial_{xx})(kv) \\
+	&= \partial_{tt}u-c^{2} \partial_{xx}u + \partial_{tt}(kv)-c^{2} \partial_{xx}(kv) \\
+	&= \partial_{tt}u-c^{2} \partial_{xx}u + k \partial_{tt}v-c^{2} k \partial_{xx}v \\
+	&= \partial_{tt}u-c^{2} \partial_{xx}u + k(\partial_{tt}v - c^{2} \partial_{xx}v) \\
+	&= (\partial_{tt}- c^{2} \partial_{xx}) u + k(\partial_{tt} - c^{2}  \partial_{xx}) v \\
+	&= \LL u + k\LL v
+	\end{align*}
+	Hal ini berakibat bahwa persamaan gelombang merupakan PDP linier. 
+\end{enumerate}
+\section{Persamaan Differensial Parsial}
+Untuk fungsi dua peubah $u(x,y)$ bentuk umum pdp orde satu adalah:
+$$ F(x,y,u(x,y),u_{x}(x,y),u_{y}(x,y))=F(x,y,u,u_x,u_y)=0,$$
+Sedangkan bentuk umum PDP orde dua adalah:
+$$F(x,y,u,u_{x},u_{y},u_{xx},u_{xy},u_{yy})=0.$$
+Solusi dari PDP adalah fungsi $u(x,y)$ yang memenuhi persamaan diferensial tersebut, untuk suatu daerah di bidang-$xy$. 
+\subsection{Persamaan Differensial Parsial Linear Orde $1$}
+\subsubsection{Persamaan Transport}
+\subsection{Persamaan Differensial Parsial Linear Orde $2$}
+
+
+\begin{enumerate}
+	\item[1.]
+	
+\end{enumerate}
+
+
+
+
+
+	
+
+$$\rho_{ij}(k)=\frac{\gamma_{ij}(k)}{\sqrt{\gamma_{ii}(0)\gamma_{jj}(0)}} \text{ dimana}$$
+$$\gamma_{ij}(k) = E\left [ \left (  Z_{i,t}-\mu_{i}\right )\left ( Z_{j,t+k}-\mu_{j} \right ) \right ] = E\left [ \left (  Z_{i,t-k}-\mu_{i}\right )\left ( Z_{j,t}-\mu_{j} \right ) \right ]$$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
