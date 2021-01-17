@@ -1,0 +1,93 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage{geometry}\geometry{tmargin=2cm,lmargin=2cm,bmargin=2cm,rmargin=2cm}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+\DeclareMathOperator{\lcm}{$\text{lcm}$}
+\newcommand{\ds}{\displaystyle}
+\newcommand{\bs}{\boldsymbol}
+\usepackage{multicol}
+
+\author{Uzumaki Nagato Tenshou}
+\title{Catatan Analisis Matriks}
+\usepackage{amsthm}
+
+
+\begin{document}
+\maketitle
+
+
+\begin{center}
+	\textbf{Uniter dan Hermitian Matriks}
+\end{center}
+
+
+
+Masalah matriks berikut berkaitan dengan diagonalisasi pada matriks kompleks, dan berhubungan dengan masalah nilai eigen, sehingga dibutuhkan konsep matriks Uniter dan matriks Hermitian. Matriks tersebut bersesuaian dengan matriks ortogonal dan matriks real simetri. Sebelum mendefinisikan matriks Uniter dan matriks Hermitian, pertama diperkenalkan konsep dari konjugat transpose matriks.
+
+\begin{enumerate}
+	\item \textbf{Konjugat Transpose Matriks}\\
+	\\
+	\hspace*{0.5cm} Konjugat Transpose dari Matriks Kompleks $A$ dituliskan $A^*$ yang didefinisikan
+	\begin{align*}
+	\displaystyle A^*=\overline{A^{T}}
+	\end{align*}
+	dimana $\overline{A}$ adalah Konjugat Kompleks dari entri-entri (elemen) dari matriks $A$.\\
+	(note : jika $A$ merupakan matriks dengan entri bilangan real, maka $A^*=A^{T}$.)
+	Contoh :\\
+	Misalkan $A=\begin{pmatrix}
+	0 & 5+i & \sqrt{2}i\\ 
+	5-i & 6 & 7\\ 
+	-\sqrt{2}i & 4 & 3
+	\end{pmatrix}$ sehingga $A^{T}=\begin{pmatrix}
+	0 & 5-i & -\sqrt{2}i\\ 
+	5+i & 6 & 4\\ 
+	\sqrt{2}i & 7 & 3
+	\end{pmatrix}$ maka\\
+	$A^*=\begin{pmatrix}
+	0 & 5+i & \sqrt{2}i\\ 
+	5-i & 6 & 4\\ 
+	-\sqrt{2}i & 7 & 3
+	\end{pmatrix}$. 
+	Perlu diketahui bahwa $\overline{A^{T}}=\left(\overline{A}\right)^{T}=\overline{\left(A^{T}\right)}$ sehingga ditranspose dahulu atau di konjugat dahulu hasilnya sama (bukti diserahkan kepada pembaca)\\
+	
+	Sifat-Sifat dari Konjugat Transpose Matriks Kompleks yang perlu diketahui :
+	\begin{enumerate}
+		\item[a.] $\left(A^*\right)^*=A$.
+		\item[b.] $\left(A+B\right)^*=A^*+B^*$.
+		\item[C.] $\left(k\, A\right)^*=k\, A^*$.
+		\item[d.] $\left(AB\right)^*=B^*A^*$.
+	\end{enumerate}
+	
+	
+	\item \textbf{Matriks Uniter}\\
+	\\
+	\hspace*{0.5cm} Diketahui bahwa Matriks real $A$ ortogonal jika dan hanya jika $A^{-1}=A^{T}$. Di dalam sistem bilangan kompleks, sifat ortogonal tersebut dapat diperumum menjadi $A^{-1}=A^*$ dan dapat disebut sebagai matriks uniter.
+	
+	
+	\item \textbf{Matriks Hermitian}\\
+	\\
+	\hspace*{0.5cm} Suatu Matriks Real dikatakan simetri jika matriks tersebut sama dengan Transposenya. Di dalam bilangan kompleks, lebih banyak digunakan tipe Matriks dengan sifat Konjugat Transpose dari Matriks tersebut sama dengan dirinya sendiri. Matriks tersebut dikatakan sebagai Matriks Hermitian yang diberikan nama dari Matematikawan Prancis Charles Hermite ($1822$-$1901$).
+	
+	
+	
+
+		
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
